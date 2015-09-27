@@ -16,6 +16,12 @@
 		070BFA8D1BB7FE17000F31CF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 070BFA8B1BB7FE17000F31CF /* LaunchScreen.xib */; };
 		070BFA991BB7FE17000F31CF /* top_placesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 070BFA981BB7FE17000F31CF /* top_placesTests.m */; };
 		070BFAA91BB80874000F31CF /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 070BFAA81BB80874000F31CF /* FlickrFetcher.m */; };
+		0743D3EB1BB83DE500AAEE39 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0743D3E21BB8220500AAEE39 /* libRestKit.a */; };
+		0743D3ED1BB83E2300AAEE39 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0743D3EC1BB83E2300AAEE39 /* CFNetwork.framework */; };
+		0743D3EF1BB83E6900AAEE39 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0743D3EE1BB83E6900AAEE39 /* MobileCoreServices.framework */; };
+		0743D3F91BB8406400AAEE39 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0743D3F61BB8406400AAEE39 /* CoreData.framework */; };
+		0743D3FA1BB8406400AAEE39 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0743D3F71BB8406400AAEE39 /* Security.framework */; };
+		0743D3FB1BB8406400AAEE39 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0743D3F81BB8406400AAEE39 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +31,41 @@
 			proxyType = 1;
 			remoteGlobalIDString = 070BFA751BB7FE17000F31CF;
 			remoteInfo = "top-places";
+		};
+		0743D3E11BB8220500AAEE39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0743D3DA1BB8220300AAEE39 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D1614564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		0743D3E31BB8220500AAEE39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0743D3DA1BB8220300AAEE39 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D2614564E820060A5C5;
+			remoteInfo = RestKitTests;
+		};
+		0743D3E51BB8220500AAEE39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0743D3DA1BB8220300AAEE39 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E62145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		0743D3E71BB8220500AAEE39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0743D3DA1BB8220300AAEE39 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E78145651060060A5C5;
+			remoteInfo = RestKitFrameworkTests;
+		};
+		0743D3E91BB83D7600AAEE39 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0743D3DA1BB8220300AAEE39 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160D1514564E810060A5C5;
+			remoteInfo = RestKit;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -46,6 +87,12 @@
 		070BFAA61BB80874000F31CF /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
 		070BFAA71BB80874000F31CF /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
 		070BFAA81BB80874000F31CF /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
+		0743D3DA1BB8220300AAEE39 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		0743D3EC1BB83E2300AAEE39 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		0743D3EE1BB83E6900AAEE39 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		0743D3F61BB8406400AAEE39 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0743D3F71BB8406400AAEE39 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0743D3F81BB8406400AAEE39 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +100,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0743D3F91BB8406400AAEE39 /* CoreData.framework in Frameworks */,
+				0743D3FA1BB8406400AAEE39 /* Security.framework in Frameworks */,
+				0743D3FB1BB8406400AAEE39 /* SystemConfiguration.framework in Frameworks */,
+				0743D3EF1BB83E6900AAEE39 /* MobileCoreServices.framework in Frameworks */,
+				0743D3ED1BB83E2300AAEE39 /* CFNetwork.framework in Frameworks */,
+				0743D3EB1BB83DE500AAEE39 /* libRestKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +122,12 @@
 		070BFA6D1BB7FE17000F31CF = {
 			isa = PBXGroup;
 			children = (
+				0743D3F61BB8406400AAEE39 /* CoreData.framework */,
+				0743D3F71BB8406400AAEE39 /* Security.framework */,
+				0743D3F81BB8406400AAEE39 /* SystemConfiguration.framework */,
+				0743D3EE1BB83E6900AAEE39 /* MobileCoreServices.framework */,
+				0743D3EC1BB83E2300AAEE39 /* CFNetwork.framework */,
+				0743D3DA1BB8220300AAEE39 /* RestKit.xcodeproj */,
 				070BFAA41BB80839000F31CF /* ViewControllers */,
 				070BFAA31BB80820000F31CF /* DataLoader */,
 				070BFAA21BB80815000F31CF /* Model */,
@@ -161,6 +220,17 @@
 			path = "Flickr Fetcher";
 			sourceTree = "<group>";
 		};
+		0743D3DB1BB8220300AAEE39 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0743D3E21BB8220500AAEE39 /* libRestKit.a */,
+				0743D3E41BB8220500AAEE39 /* RestKitTests.octest */,
+				0743D3E61BB8220500AAEE39 /* RestKit.framework */,
+				0743D3E81BB8220500AAEE39 /* RestKitFrameworkTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -175,6 +245,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0743D3EA1BB83D7600AAEE39 /* PBXTargetDependency */,
 			);
 			name = "top-places";
 			productName = "top-places";
@@ -228,6 +299,12 @@
 			mainGroup = 070BFA6D1BB7FE17000F31CF;
 			productRefGroup = 070BFA771BB7FE17000F31CF /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0743D3DB1BB8220300AAEE39 /* Products */;
+					ProjectRef = 0743D3DA1BB8220300AAEE39 /* RestKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				070BFA751BB7FE17000F31CF /* top-places */,
@@ -235,6 +312,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0743D3E21BB8220500AAEE39 /* libRestKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKit.a;
+			remoteRef = 0743D3E11BB8220500AAEE39 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0743D3E41BB8220500AAEE39 /* RestKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitTests.octest;
+			remoteRef = 0743D3E31BB8220500AAEE39 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0743D3E61BB8220500AAEE39 /* RestKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RestKit.framework;
+			remoteRef = 0743D3E51BB8220500AAEE39 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0743D3E81BB8220500AAEE39 /* RestKitFrameworkTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitFrameworkTests.octest;
+			remoteRef = 0743D3E71BB8220500AAEE39 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		070BFA741BB7FE17000F31CF /* Resources */ = {
@@ -284,6 +392,11 @@
 			isa = PBXTargetDependency;
 			target = 070BFA751BB7FE17000F31CF /* top-places */;
 			targetProxy = 070BFA931BB7FE17000F31CF /* PBXContainerItemProxy */;
+		};
+		0743D3EA1BB83D7600AAEE39 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKit;
+			targetProxy = 0743D3E91BB83D7600AAEE39 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -341,9 +454,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-ObjC",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -377,8 +499,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-ObjC",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -458,6 +589,7 @@
 				070BFA9E1BB7FE17000F31CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		070BFA9F1BB7FE17000F31CF /* Build configuration list for PBXNativeTarget "top-placesTests" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +598,7 @@
 				070BFAA11BB7FE17000F31CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
