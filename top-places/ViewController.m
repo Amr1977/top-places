@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "FlickrFetcher.h"
 
 @interface ViewController ()
 

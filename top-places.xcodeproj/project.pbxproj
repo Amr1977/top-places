@@ -10,7 +10,6 @@
 		070BFA7C1BB7FE17000F31CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 070BFA7B1BB7FE17000F31CF /* main.m */; };
 		070BFA7F1BB7FE17000F31CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 070BFA7E1BB7FE17000F31CF /* AppDelegate.m */; };
 		070BFA821BB7FE17000F31CF /* top_places.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 070BFA801BB7FE17000F31CF /* top_places.xcdatamodeld */; };
-		070BFA851BB7FE17000F31CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 070BFA841BB7FE17000F31CF /* ViewController.m */; };
 		070BFA881BB7FE17000F31CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 070BFA861BB7FE17000F31CF /* Main.storyboard */; };
 		070BFA8A1BB7FE17000F31CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 070BFA891BB7FE17000F31CF /* Images.xcassets */; };
 		070BFA8D1BB7FE17000F31CF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 070BFA8B1BB7FE17000F31CF /* LaunchScreen.xib */; };
@@ -18,6 +17,8 @@
 		070BFAA91BB80874000F31CF /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 070BFAA81BB80874000F31CF /* FlickrFetcher.m */; };
 		07F440BD1BB987880036B6A9 /* FlickerPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F440BC1BB987880036B6A9 /* FlickerPlace.m */; };
 		07F440C01BB987F80036B6A9 /* FlickerPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F440BF1BB987F80036B6A9 /* FlickerPhoto.m */; };
+		07F5046C1BBAB33C00F9B2C3 /* TPTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F5046B1BBAB33C00F9B2C3 /* TPTabBarViewController.m */; };
+		07F5046F1BBAB47D00F9B2C3 /* TPDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F5046E1BBAB47D00F9B2C3 /* TPDataLoader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +38,6 @@
 		070BFA7D1BB7FE17000F31CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		070BFA7E1BB7FE17000F31CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		070BFA811BB7FE17000F31CF /* top_places.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = top_places.xcdatamodel; sourceTree = "<group>"; };
-		070BFA831BB7FE17000F31CF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		070BFA841BB7FE17000F31CF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		070BFA871BB7FE17000F31CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		070BFA891BB7FE17000F31CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		070BFA8C1BB7FE17000F31CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -52,6 +51,10 @@
 		07F440BC1BB987880036B6A9 /* FlickerPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickerPlace.m; sourceTree = "<group>"; };
 		07F440BE1BB987F80036B6A9 /* FlickerPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickerPhoto.h; sourceTree = "<group>"; };
 		07F440BF1BB987F80036B6A9 /* FlickerPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickerPhoto.m; sourceTree = "<group>"; };
+		07F5046A1BBAB33C00F9B2C3 /* TPTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPTabBarViewController.h; sourceTree = "<group>"; };
+		07F5046B1BBAB33C00F9B2C3 /* TPTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPTabBarViewController.m; sourceTree = "<group>"; };
+		07F5046D1BBAB47D00F9B2C3 /* TPDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDataLoader.h; sourceTree = "<group>"; };
+		07F5046E1BBAB47D00F9B2C3 /* TPDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDataLoader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +101,6 @@
 			children = (
 				070BFA7D1BB7FE17000F31CF /* AppDelegate.h */,
 				070BFA7E1BB7FE17000F31CF /* AppDelegate.m */,
-				070BFA831BB7FE17000F31CF /* ViewController.h */,
-				070BFA841BB7FE17000F31CF /* ViewController.m */,
 				070BFA861BB7FE17000F31CF /* Main.storyboard */,
 				070BFA891BB7FE17000F31CF /* Images.xcassets */,
 				070BFA8B1BB7FE17000F31CF /* LaunchScreen.xib */,
@@ -150,6 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				070BFAA51BB80874000F31CF /* Flickr Fetcher */,
+				07F5046D1BBAB47D00F9B2C3 /* TPDataLoader.h */,
+				07F5046E1BBAB47D00F9B2C3 /* TPDataLoader.m */,
 			);
 			name = DataLoader;
 			sourceTree = "<group>";
@@ -157,6 +160,8 @@
 		070BFAA41BB80839000F31CF /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				07F5046A1BBAB33C00F9B2C3 /* TPTabBarViewController.h */,
+				07F5046B1BBAB33C00F9B2C3 /* TPTabBarViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -273,10 +278,11 @@
 			files = (
 				070BFA7F1BB7FE17000F31CF /* AppDelegate.m in Sources */,
 				070BFA821BB7FE17000F31CF /* top_places.xcdatamodeld in Sources */,
-				070BFA851BB7FE17000F31CF /* ViewController.m in Sources */,
+				07F5046C1BBAB33C00F9B2C3 /* TPTabBarViewController.m in Sources */,
 				070BFAA91BB80874000F31CF /* FlickrFetcher.m in Sources */,
 				07F440C01BB987F80036B6A9 /* FlickerPhoto.m in Sources */,
 				07F440BD1BB987880036B6A9 /* FlickerPlace.m in Sources */,
+				07F5046F1BBAB47D00F9B2C3 /* TPDataLoader.m in Sources */,
 				070BFA7C1BB7FE17000F31CF /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

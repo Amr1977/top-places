@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="dYW-7d-0wT">
             <objects>
-                <tabBarController id="fqX-2a-BXI" sceneMemberID="viewController">
+                <tabBarController id="fqX-2a-BXI" customClass="TPTabBarViewController" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="kGC-5P-klq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
