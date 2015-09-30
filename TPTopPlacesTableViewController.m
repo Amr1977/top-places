@@ -45,7 +45,10 @@
             weakSelf.topPlaces=result;
             NSLog(@"Loaded [%lu] top places entries.",result.count);
         }
-        [self.refreshControl endRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.refreshControl endRefreshing];
+        });
+        
         
     };
     
