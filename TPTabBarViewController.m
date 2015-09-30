@@ -7,8 +7,10 @@
 //
 
 #import "TPTabBarViewController.h"
+#import "TPDataLoader.h"
 
 @interface TPTabBarViewController ()
+
 
 @end
 
@@ -16,8 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

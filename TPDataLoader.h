@@ -12,6 +12,7 @@
 
 @interface TPDataLoader : NSObject
 
+
 +(void) getFlickrTopPlacesWithCompletion:(void (^)(BOOL success, NSArray *result))completionBack;
 
 +(void) getPhotoListForFlickrPlace:(FlickerPlace *)flickrPlace withCompletionBlock:(void (^)(BOOL success, NSArray *result))completionBack;

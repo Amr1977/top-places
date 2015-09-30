@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar View Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="dYW-7d-0wT">
             <objects>
-                <tabBarController id="fqX-2a-BXI" customClass="TPTabBarViewController" sceneMemberID="viewController">
+                <tabBarController id="fqX-2a-BXI" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="kGC-5P-klq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -26,7 +26,7 @@
         <!--Top Places-->
         <scene sceneID="ysq-cW-pwg">
             <objects>
-                <tableViewController id="meE-l6-wyA" sceneMemberID="viewController">
+                <tableViewController id="meE-l6-wyA" customClass="TPTopPlacesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Hte-na-3Us">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -56,7 +56,7 @@
         <!--Photo List-->
         <scene sceneID="j4e-PF-9pe">
             <objects>
-                <tableViewController title="Photo List" id="woV-39-GRT" sceneMemberID="viewController">
+                <tableViewController title="Photo List" id="woV-39-GRT" customClass="TPTopPlacesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gSi-YL-uKk">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
