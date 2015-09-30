@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TPTopPlacesTableViewController : UITableViewController
-@property (nonatomic, strong) NSArray * topPlaces;
+@property (strong, nonatomic) NSArray * topPlaces;
+@property (strong,nonatomic) NSDictionary * countryHashedPlaces;
 @end

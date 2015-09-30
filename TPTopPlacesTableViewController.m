@@ -12,6 +12,7 @@
 @interface TPTopPlacesTableViewController ()
 
 @property (strong,nonatomic) UIRefreshControl * refreshControl;
+@property (nonatomic) BOOL placesHashNeedsUpdate;
 
 @end
 
@@ -44,12 +45,12 @@
         if (success) {
             weakSelf.topPlaces=result;
             NSLog(@"Loaded [%lu] top places entries.",result.count);
+            self.placesHashNeedsUpdate=true;
+            NSLog(@"Country-hashed-places: %@",[self countryHashedPlaces]);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.refreshControl endRefreshing];
         });
-        
-        
     };
     
     [TPDataLoader getFlickrTopPlacesWithCompletion:block];
@@ -60,6 +61,42 @@
     [self.tableView addSubview:refreshControl];
     self.refreshControl = refreshControl;
     [self.refreshControl addTarget:self action:@selector(loadData) forControlEvents:UIControlEventValueChanged];
+}
+
+-(NSDictionary *) countryHashedPlaces{
+    NSDictionary * hashedPlaces=_countryHashedPlaces;
+    if (self.placesHashNeedsUpdate) {
+        hashedPlaces= [self hashPlacesByCountry];
+        self.placesHashNeedsUpdate=false;
+    }
+    return hashedPlaces;
+}
+
+-(NSString *) getCountryName:(NSString *) commaSeparatedRegionContent{
+    NSMutableString * countryPart=[@"" mutableCopy];
+    if (commaSeparatedRegionContent) {
+        NSArray * stringParts=[commaSeparatedRegionContent componentsSeparatedByString:@", "];
+        if (stringParts.count == 3) {
+            countryPart = stringParts[2];
+        }
+    }
+    NSLog(@"From [%@] Extracted Country name: [%@]",commaSeparatedRegionContent,countryPart);
+    return countryPart;
+}
+
+-(NSDictionary *) hashPlacesByCountry{
+    NSMutableDictionary * hashedPlaces=[@{} mutableCopy];
+    //creating places hashed on country part
+    for (NSDictionary * placeDictionary in self.topPlaces) {
+        if (!hashedPlaces[[self getCountryName:placeDictionary[@"_content"]]]) {
+            hashedPlaces[[self getCountryName:placeDictionary[@"_content"]]]= [@[ placeDictionary] mutableCopy];
+        }else{
+            [hashedPlaces[[self getCountryName:placeDictionary[@"_content"]]] addObject:placeDictionary];
+        }
+    }
+    NSLog(@"Created Country-hashed_place dictioary: %@",hashedPlaces);
+    //TODO: sort on woe_name part
+    return hashedPlaces;
 }
 
 #pragma mark - Table view data source
