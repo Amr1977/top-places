@@ -8,14 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "FlickerPhoto.h"
-#import "FlickerPlace.h"
 
 @interface TPDataLoader : NSObject
 
 
 +(void) getFlickrTopPlacesWithCompletion:(void (^)(BOOL success, NSArray *result))completionBack;
 
-+(void) getPhotoListForFlickrPlace:(FlickerPlace *)flickrPlace withCompletionBlock:(void (^)(BOOL success, NSArray *result))completionBack;
++(void) getPhotoListForFlickrPlace:(id)flickrPlaceId withCompletionBlock:(void (^)(BOOL success, NSArray *result))completionBack;
 
 +(void) getPhoto:(FlickerPhoto *)photo withCompletionBlock:(void (^)(BOOL success, NSData *result))completionBack;
 

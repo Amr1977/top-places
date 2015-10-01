@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RefreshableTableViewController.h"
 
-@interface TPTopPlacesTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate >
-@property (strong, nonatomic) NSArray * topPlaces;
-@property (strong,nonatomic) NSDictionary * countryHashedPlaces;
+@interface TPTopPlacesTableViewController : RefreshableTableViewController
+
 @end

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		070AB4B01BBC0438004BFDF3 /* TPTopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 070AB4AF1BBC0438004BFDF3 /* TPTopPlacesTableViewController.m */; };
+		070B697B1BBD5AA800E1D9C3 /* TPPhotoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B697A1BBD5AA800E1D9C3 /* TPPhotoListTableViewController.m */; };
+		070B697E1BBD776D00E1D9C3 /* RefreshableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 070B697D1BBD776D00E1D9C3 /* RefreshableTableViewController.m */; };
 		070BFA7C1BB7FE17000F31CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 070BFA7B1BB7FE17000F31CF /* main.m */; };
 		070BFA7F1BB7FE17000F31CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 070BFA7E1BB7FE17000F31CF /* AppDelegate.m */; };
 		070BFA821BB7FE17000F31CF /* top_places.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 070BFA801BB7FE17000F31CF /* top_places.xcdatamodeld */; };
@@ -35,6 +37,10 @@
 /* Begin PBXFileReference section */
 		070AB4AE1BBC0438004BFDF3 /* TPTopPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPTopPlacesTableViewController.h; sourceTree = "<group>"; };
 		070AB4AF1BBC0438004BFDF3 /* TPTopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPTopPlacesTableViewController.m; sourceTree = "<group>"; };
+		070B69791BBD5AA700E1D9C3 /* TPPhotoListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPPhotoListTableViewController.h; sourceTree = "<group>"; };
+		070B697A1BBD5AA800E1D9C3 /* TPPhotoListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPhotoListTableViewController.m; sourceTree = "<group>"; };
+		070B697C1BBD776D00E1D9C3 /* RefreshableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefreshableTableViewController.h; sourceTree = "<group>"; };
+		070B697D1BBD776D00E1D9C3 /* RefreshableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefreshableTableViewController.m; sourceTree = "<group>"; };
 		070BFA761BB7FE17000F31CF /* top-places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "top-places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		070BFA7A1BB7FE17000F31CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		070BFA7B1BB7FE17000F31CF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -167,6 +173,10 @@
 				07F5046B1BBAB33C00F9B2C3 /* TPTabBarViewController.m */,
 				070AB4AE1BBC0438004BFDF3 /* TPTopPlacesTableViewController.h */,
 				070AB4AF1BBC0438004BFDF3 /* TPTopPlacesTableViewController.m */,
+				070B69791BBD5AA700E1D9C3 /* TPPhotoListTableViewController.h */,
+				070B697A1BBD5AA800E1D9C3 /* TPPhotoListTableViewController.m */,
+				070B697C1BBD776D00E1D9C3 /* RefreshableTableViewController.h */,
+				070B697D1BBD776D00E1D9C3 /* RefreshableTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -281,8 +291,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				070B697E1BBD776D00E1D9C3 /* RefreshableTableViewController.m in Sources */,
 				070BFA7F1BB7FE17000F31CF /* AppDelegate.m in Sources */,
 				070BFA821BB7FE17000F31CF /* top_places.xcdatamodeld in Sources */,
+				070B697B1BBD5AA800E1D9C3 /* TPPhotoListTableViewController.m in Sources */,
 				07F5046C1BBAB33C00F9B2C3 /* TPTabBarViewController.m in Sources */,
 				070BFAA91BB80874000F31CF /* FlickrFetcher.m in Sources */,
 				07F440C01BB987F80036B6A9 /* FlickerPhoto.m in Sources */,
