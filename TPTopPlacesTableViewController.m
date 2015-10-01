@@ -13,6 +13,7 @@
 
 @property (strong,nonatomic) UIRefreshControl * refreshControl;
 @property (nonatomic) BOOL placesHashNeedsUpdate;
+@property (strong,nonatomic) NSArray * countries;
 
 @end
 
@@ -45,10 +46,11 @@
         if (success) {
             weakSelf.topPlaces=result;
             NSLog(@"Loaded [%lu] top places entries.",result.count);
-            self.placesHashNeedsUpdate=true;
+            self.countryHashedPlaces = [self hashPlacesByCountry];
             NSLog(@"Country-hashed-places: %@",[self countryHashedPlaces]);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
             [weakSelf.refreshControl endRefreshing];
         });
     };
@@ -63,65 +65,93 @@
     [self.refreshControl addTarget:self action:@selector(loadData) forControlEvents:UIControlEventValueChanged];
 }
 
+#pragma mark - countryHashedPlaces
+
 -(NSDictionary *) countryHashedPlaces{
-    NSDictionary * hashedPlaces=_countryHashedPlaces;
-    if (self.placesHashNeedsUpdate) {
-        hashedPlaces= [self hashPlacesByCountry];
-        self.placesHashNeedsUpdate=false;
+    if (!_countryHashedPlaces) {
+        _countryHashedPlaces= [self hashPlacesByCountry];
     }
-    return hashedPlaces;
+    return _countryHashedPlaces;
 }
 
--(NSString *) getCountryName:(NSString *) commaSeparatedRegionContent{
-    NSMutableString * countryPart=[@"" mutableCopy];
+-(NSDictionary *) getCountryCityAndStateName:(NSString *) commaSeparatedRegionContent{
+    NSMutableDictionary * result=[@{} mutableCopy];
     if (commaSeparatedRegionContent) {
         NSArray * stringParts=[commaSeparatedRegionContent componentsSeparatedByString:@", "];
         if (stringParts.count == 3) {
-            countryPart = stringParts[2];
+            result[@"country"]=stringParts[2];
+            result[@"city"]=stringParts[1];
+            result[@"state"]=stringParts[0];
         }
     }
-    NSLog(@"From [%@] Extracted Country name: [%@]",commaSeparatedRegionContent,countryPart);
-    return countryPart;
+    NSLog(@"From [%@] Extracted Country data : [%@]",commaSeparatedRegionContent,result);
+    return result;
 }
+
+
+
+#define SORT_KEY @"place_url"
 
 -(NSDictionary *) hashPlacesByCountry{
     NSMutableDictionary * hashedPlaces=[@{} mutableCopy];
+    NSMutableArray * countries = [@[] mutableCopy];
     //creating places hashed on country part
+    
     for (NSDictionary * placeDictionary in self.topPlaces) {
-        if (!hashedPlaces[[self getCountryName:placeDictionary[@"_content"]]]) {
-            hashedPlaces[[self getCountryName:placeDictionary[@"_content"]]]= [@[ placeDictionary] mutableCopy];
+        NSString * countryName=[self getCountryCityAndStateName:placeDictionary[@"_content"]][@"country"];
+        if (!hashedPlaces[countryName]) {
+            hashedPlaces[countryName] = [@[placeDictionary] mutableCopy];
+            [countries addObject:countryName];
         }else{
-            [hashedPlaces[[self getCountryName:placeDictionary[@"_content"]]] addObject:placeDictionary];
+            [hashedPlaces[countryName] addObject:placeDictionary];
         }
     }
-    NSLog(@"Created Country-hashed_place dictioary: %@",hashedPlaces);
+    self.countries=countries;
+    NSLog(@"Created Country-hashed place dictionary: %@",hashedPlaces);
     //TODO: sort on woe_name part
+    for (NSString * countryName in countries) {
+        hashedPlaces[countryName] = [hashedPlaces[countryName] sortedArrayUsingComparator:^(NSDictionary * obj1, NSDictionary * obj2){
+            return [obj1[SORT_KEY] compare: obj2[SORT_KEY]];
+        }];
+        NSLog(@"Sorted places of country[%@] : %@", countryName,hashedPlaces[countryName]);
+    }
     return hashedPlaces;
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    NSLog(@"country count: %lu", self.countries.count);
+    return self.countries.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [self.countryHashedPlaces[self.countries[section]] count];
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
+    static NSString *CellIdentifier = @"places_cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:CellIdentifier];
+    }
     // Configure the cell...
+    NSString * countryName=self.countries[indexPath.section];
+    NSArray * placesInACountry=self.countryHashedPlaces[countryName];
+    NSDictionary * place=placesInACountry[indexPath.row];
+    NSString * placeString=place[@"_content"];
+    NSString * city = [self getCountryCityAndStateName:placeString][@"city"];
+    NSString * state = [self getCountryCityAndStateName:placeString][@"state"];
     
+    cell.textLabel.text = city;
+    cell.detailTextLabel.text = state;
+    NSLog(@"cell: %@",cell);
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -157,6 +187,8 @@
 }
 */
 
+#define PLACE_PHOTOS_SEGUES @"Goto_place_photos"
+
 /*
 #pragma mark - Navigation
 
@@ -167,4 +199,8 @@
 }
 */
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return self.countries[section];
+}
 @end

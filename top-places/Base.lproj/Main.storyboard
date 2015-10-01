@@ -32,21 +32,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="pi7-HG-ESB">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="places_cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="places_cell" textLabel="sYj-XX-wH1" detailTextLabel="epv-5W-ivd" style="IBUITableViewCellStyleSubtitle" id="pi7-HG-ESB">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pi7-HG-ESB" id="UxH-tc-qms">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sYj-XX-wH1">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="epv-5W-ivd">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="meE-l6-wyA" id="AjZ-mH-6a4"/>
-                            <outlet property="delegate" destination="meE-l6-wyA" id="9vd-Jo-nSr"/>
+                            <outlet property="dataSource" destination="meE-l6-wyA" id="lwd-qT-dR9"/>
+                            <outlet property="delegate" destination="meE-l6-wyA" id="Kc7-1H-o0e"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Top Places" id="cGd-kY-22W"/>
                     <connections>
-                        <segue destination="woV-39-GRT" kind="showDetail" id="PUe-oQ-FHM"/>
+                        <segue destination="woV-39-GRT" kind="showDetail" identifier="Goto_place_photos" id="PUe-oQ-FHM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GFL-qU-Cvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
