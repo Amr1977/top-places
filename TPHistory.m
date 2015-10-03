@@ -7,6 +7,7 @@
 //
 
 #import "TPHistory.h"
+#import "FlickrFetcher.h"
 
 @implementation TPHistory
 
@@ -30,21 +31,37 @@
 
 #define MAX_HISTORY_ENTRIES_COUNT 20
 
-+(void) addImage:(NSDictionary *)imageInfo{
-    if (imageInfo) {
-        [[[self sharedInstance] photoHistory] insertObject:imageInfo atIndex:0];
-        while ([[[self sharedInstance] photoHistory] count] > MAX_HISTORY_ENTRIES_COUNT) {
-            [[[self sharedInstance] photoHistory] removeObjectAtIndex:MAX_HISTORY_ENTRIES_COUNT];
+#define HISTORY_ENTRY_IMAGE_DATA_KEY @"image"
+#define HISTORY_ENTRY_IMAGE_INFO_KEY @"info"
+
+-(void) addUIImage:(UIImage *)image withInfo:(NSDictionary *)imageInfo{
+    if (imageInfo && image ) {
+        //TODO: only add if not already in the list, if in the list move it to the top
+        NSString * photoID = imageInfo[FLICKR_PHOTO_ID];
+        
+        NSUInteger indexOfImage= [self.photosIDsArray indexOfObject:photoID];
+        
+        if (indexOfImage == NSNotFound) {
+            //DO insert at the start/top
+            
+            [self.photosIDsArray insertObject:photoID atIndex:0];
+            NSDictionary * histryValueEntry= @{ @"info":imageInfo, @"image": image };
+            self.photosHistory[photoID]=histryValueEntry;
+            
+            
+        }else{
+            //move it to the start/top
         }
+        
         
     }
 }
 
--(NSMutableArray *) photoHistory{
-    if (!_photoHistory) {
-        _photoHistory= [@[] mutableCopy];
+-(NSMutableArray *) photosInfoHistory{
+    if (!_photosHistory) {
+        _photosHistory= [@[] mutableCopy];
     }
-    return _photoHistory;
+    return _photosHistory;
 }
 
 @end

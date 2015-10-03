@@ -12,10 +12,10 @@
 @interface TPDataLoader : NSObject
 
 
-+(void) getFlickrTopPlacesWithCompletion:(void (^)(BOOL success, NSArray *result))completionBack;
++(void) getFlickrTopPlacesWithCompletion:(void (^)(BOOL success, NSArray *result))completionBlock;
 
-+(void) getPhotoListForFlickrPlace:(id)flickrPlaceId withCompletionBlock:(void (^)(BOOL success, NSArray *result))completionBack;
++(void) getPhotoListForFlickrPlace:(id)flickrPlaceId withCompletionBlock:(void (^)(BOOL success, NSArray *result))completionBlock;
 
-+(void) getPhoto:(FlickerPhoto *)photo withCompletionBlock:(void (^)(BOOL success, NSData *result))completionBack;
++(void) getPhoto:(NSDictionary *)photo withCompletionBlock:(void (^)(BOOL success, NSData *result))completionBlock;
 
 @end

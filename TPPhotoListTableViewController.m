@@ -9,6 +9,8 @@
 #import "TPPhotoListTableViewController.h"
 #import "FlickrFetcher.h"
 #import "TPDataLoader.h"
+#import "TPHistory.h"
+#import "TPPhotoDetailsViewController.h"
 
 @interface TPPhotoListTableViewController ()
 @property (strong,nonatomic) NSArray * photoList;
@@ -71,6 +73,7 @@
                                       reuseIdentifier:CellIdentifier];
     }
     NSDictionary * photoDictionary=self.photoList[indexPath.row];
+    //[TPHistory addImage:photoDictionary];
     NSString * photoTitle= photoDictionary[FLICKR_PHOTO_TITLE];
     NSString * photoSubTitle= photoDictionary[FLICKR_PHOTO_DESCRIPTION];
     
@@ -84,7 +87,6 @@
     
     
     // Configure the cell...
-    
     cell.textLabel.text = photoTitle;
     cell.detailTextLabel.text = photoSubTitle;
     NSLog(@"cell title: [%@], subtitle:[%@]",photoTitle,photoSubTitle);
@@ -126,14 +128,26 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"photo_details"]) {
+        NSLog(@"Navigating to photo viewer.");
+        TPPhotoDetailsViewController * photoView= [segue destinationViewController];
+        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+        photoView.photoInfoDictionary = [self.photoList[selectedIndexPath.row] copy];
+    }
+    
 }
-*/
+
+#define PHOTO_DETAILS_SEGUE_IDENTIFIER @"photo_details"
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:PHOTO_DETAILS_SEGUE_IDENTIFIER sender:nil];
+}
+
 
 @end

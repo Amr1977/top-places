@@ -159,7 +159,7 @@
     NSString * placeId = place[FLICKR_PLACE_ID];
     if ([segue.identifier isEqualToString:PLACE_PHOTOS_SEGUES]) {
         TPPhotoListTableViewController *photoListVC= (TPPhotoListTableViewController *)[segue destinationViewController];
-        photoListVC.placeId=placeId;
+        photoListVC.placeId=[placeId copy];
         NSLog(@"Selected place ID: %@",placeId);
     }
 }

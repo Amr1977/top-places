@@ -8,6 +8,7 @@
 
 #import "TPDataLoader.h"
 #import "FlickrFetcher.h"
+@import UIKit;
 
 @implementation TPDataLoader
 
@@ -52,7 +53,17 @@
     });
 }
 
-+(void) getPhoto:(FlickerPhoto *)photo withCompletionBlock:(void (^)(BOOL success, NSData *result))completionBack{
-    NSLog(@"Not yet implemented.[3]");
++(void) getPhoto:(NSDictionary *)photo withCompletionBlock:(void (^)(BOOL success, NSData *result))completionBlock{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSData * result = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge]];
+        if (result) {
+            if (completionBlock) {
+                completionBlock(true,result);
+            }
+        }else{
+            NSLog(@"Error fetching photo, [%@]",[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge]);
+        }
+    });
 }
 @end

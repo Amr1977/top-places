@@ -7,11 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+@import UIKit;
 
 @interface TPHistory : NSObject
 
-@property (strong,nonatomic) NSMutableArray * photoHistory;
+@property (strong,nonatomic) NSMutableDictionary * photosHistory;
 
-+(void) addImage:(NSDictionary *)imageInfo;
+@property (strong,nonatomic) NSMutableArray * photosIDsArray;
+
+
++(void) addUIImage:(UIImage *) image withInfo:(NSDictionary *)imageInfo;
 
 @end

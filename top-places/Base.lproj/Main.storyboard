@@ -104,7 +104,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="UYF-h3-pYR"/>
                     <connections>
-                        <segue destination="VwP-9m-AYx" kind="show" id="RVi-3h-Y6n"/>
+                        <segue destination="VwP-9m-AYx" kind="show" identifier="photo_details" id="7NM-6x-aJ1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Or-5P-cAs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -144,7 +144,7 @@
         <!--Photo View-->
         <scene sceneID="DYJ-PB-WCI">
             <objects>
-                <viewController title="Photo View" id="VwP-9m-AYx" sceneMemberID="viewController">
+                <viewController title="Photo View" id="VwP-9m-AYx" customClass="TPPhotoDetailsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dY4-AA-Cu0"/>
                         <viewControllerLayoutGuide type="bottom" id="r1C-Fq-lGF"/>
@@ -153,9 +153,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gCy-uo-jSQ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="gCy-uo-jSQ">
+                                <rect key="frame" x="-20" y="-20" width="600" height="600"/>
                                 <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="HHA-Yl-5WO">
+                                        <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                    </activityIndicatorView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="icf-1T-D0G">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                     </imageView>
@@ -164,6 +167,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="HHA-Yl-5WO" id="VIO-Jc-y1k"/>
+                        <outlet property="photoImageView" destination="icf-1T-D0G" id="9aY-32-joZ"/>
+                        <outlet property="scrollView" destination="gCy-uo-jSQ" id="TM4-Rr-W6n"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mg5-PP-Fxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
