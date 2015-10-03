@@ -18,4 +18,6 @@
 
 +(void) addUIImage:(UIImage *) image withInfo:(NSDictionary *)imageInfo;
 
++(instancetype) sharedInstance;
+
 @end

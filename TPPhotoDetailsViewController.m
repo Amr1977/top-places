@@ -8,6 +8,7 @@
 
 #import "TPPhotoDetailsViewController.h"
 #import "TPDataLoader.h"
+#import "TPHistory.h"
 
 @interface TPPhotoDetailsViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
@@ -43,6 +44,7 @@
         void (^block)(BOOL success, NSData * photoData) = ^(BOOL success, NSData * photoData){
             if (success) {
                 self.photoImageView.image = [UIImage imageWithData:photoData];
+                [TPHistory addUIImage:self.photoImageView.image withInfo:self.photoInfoDictionary];
             }
             [weakSelf.activityIndicator stopAnimating];
         };

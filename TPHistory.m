@@ -34,30 +34,34 @@
 #define HISTORY_ENTRY_IMAGE_DATA_KEY @"image"
 #define HISTORY_ENTRY_IMAGE_INFO_KEY @"info"
 
--(void) addUIImage:(UIImage *)image withInfo:(NSDictionary *)imageInfo{
+
+/**
+ Simply extract photo Id from imageInfo and keep a copy that ID in a separate array (photosIDsArray), insert new ids in index 0,  to preserve time order, then add the @{image,info} dictionary as a value in photosHistory dictionary with a key that is photo ID.
+ 
+ Simply add to this dictionary @{photoid:@{image:image, info:imageInfo}}
+ */
++(void) addUIImage:(UIImage *)image withInfo:(NSDictionary *)imageInfo{
     if (imageInfo && image ) {
         //TODO: only add if not already in the list, if in the list move it to the top
         NSString * photoID = imageInfo[FLICKR_PHOTO_ID];
         
-        NSUInteger indexOfImage= [self.photosIDsArray indexOfObject:photoID];
+        NSUInteger indexOfImage= [[TPHistory sharedInstance].photosIDsArray indexOfObject:photoID];
         
         if (indexOfImage == NSNotFound) {
-            //DO insert at the start/top
-            
-            [self.photosIDsArray insertObject:photoID atIndex:0];
+            //insert at the start/top
+            [[TPHistory sharedInstance].photosIDsArray insertObject:photoID atIndex:0];
             NSDictionary * histryValueEntry= @{ @"info":imageInfo, @"image": image };
-            self.photosHistory[photoID]=histryValueEntry;
-            
-            
+            [TPHistory sharedInstance].photosHistory[photoID]=histryValueEntry;
+            //TODO: check history list size and remove extra entries from both styructures
         }else{
             //move it to the start/top
+            [[TPHistory sharedInstance].photosIDsArray removeObject:photoID];//remove from current position
+            [[TPHistory sharedInstance].photosIDsArray insertObject:photoID atIndex:0];//insert at index 0
         }
-        
-        
     }
 }
 
--(NSMutableArray *) photosInfoHistory{
+-(NSMutableDictionary *) photosInfoHistory{
     if (!_photosHistory) {
         _photosHistory= [@[] mutableCopy];
     }
