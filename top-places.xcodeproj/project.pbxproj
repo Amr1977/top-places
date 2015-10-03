@@ -169,14 +169,14 @@
 		070BFAA41BB80839000F31CF /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				070B697C1BBD776D00E1D9C3 /* RefreshableTableViewController.h */,
+				070B697D1BBD776D00E1D9C3 /* RefreshableTableViewController.m */,
 				07F5046A1BBAB33C00F9B2C3 /* TPTabBarViewController.h */,
 				07F5046B1BBAB33C00F9B2C3 /* TPTabBarViewController.m */,
 				070AB4AE1BBC0438004BFDF3 /* TPTopPlacesTableViewController.h */,
 				070AB4AF1BBC0438004BFDF3 /* TPTopPlacesTableViewController.m */,
 				070B69791BBD5AA700E1D9C3 /* TPPhotoListTableViewController.h */,
 				070B697A1BBD5AA800E1D9C3 /* TPPhotoListTableViewController.m */,
-				070B697C1BBD776D00E1D9C3 /* RefreshableTableViewController.h */,
-				070B697D1BBD776D00E1D9C3 /* RefreshableTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

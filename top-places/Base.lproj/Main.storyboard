@@ -104,7 +104,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="UYF-h3-pYR"/>
                     <connections>
-                        <segue destination="VwP-9m-AYx" kind="showDetail" id="RVi-3h-Y6n"/>
+                        <segue destination="VwP-9m-AYx" kind="show" id="RVi-3h-Y6n"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Or-5P-cAs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -134,7 +134,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Recent Photos" id="scr-6j-2Me"/>
                     <connections>
-                        <segue destination="Isg-cW-e4I" kind="showDetail" id="gn5-wj-XbR"/>
+                        <segue destination="Isg-cW-e4I" kind="show" id="gn5-wj-XbR"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q3Q-Tm-NCD" userLabel="First Responder" sceneMemberID="firstResponder"/>

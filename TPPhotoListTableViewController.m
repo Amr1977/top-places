@@ -71,8 +71,16 @@
                                       reuseIdentifier:CellIdentifier];
     }
     NSDictionary * photoDictionary=self.photoList[indexPath.row];
-    NSString * photoTitle= photoDictionary[FLICKR_PHOTO_TITLE] ? photoDictionary[FLICKR_PHOTO_TITLE] : (photoDictionary[FLICKR_PHOTO_DESCRIPTION]? photoDictionary[FLICKR_PHOTO_DESCRIPTION]: @"UNKNOWN");
-    NSString * photoSubTitle= photoDictionary[FLICKR_PHOTO_DESCRIPTION] ? photoDictionary[FLICKR_PHOTO_DESCRIPTION] : @"UNKNOWN";
+    NSString * photoTitle= photoDictionary[FLICKR_PHOTO_TITLE];
+    NSString * photoSubTitle= photoDictionary[FLICKR_PHOTO_DESCRIPTION];
+    
+    if (!photoSubTitle) {
+        photoSubTitle=@"UNKNOWN";
+    }
+    if (!photoTitle) {
+        photoTitle=photoSubTitle;
+    }
+    
     
     
     // Configure the cell...
