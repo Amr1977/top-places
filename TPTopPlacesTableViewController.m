@@ -68,10 +68,12 @@
     NSMutableDictionary * result=[@{} mutableCopy];
     if (commaSeparatedRegionContent) {
         NSArray * stringParts=[commaSeparatedRegionContent componentsSeparatedByString:@", "];
-        if (stringParts.count == 3) {
-            result[@"country"]=stringParts[2];
-            result[@"city"]=stringParts[1];
+        result[@"country"]=stringParts[stringParts.count-1];
+        result[@"city"]=stringParts[stringParts.count-2];
+        if (stringParts.count == 3) {//sometimes = only 2
             result[@"state"]=stringParts[0];
+        }else{
+            result[@"state"]=stringParts[stringParts.count-2];
         }
     }
     NSLog(@"From [%@] Extracted Country data : [%@]",commaSeparatedRegionContent,result);

@@ -53,26 +53,36 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return self.photoList.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"photo_cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:CellIdentifier];
+    }
+    NSDictionary * photoDictionary=self.photoList[indexPath.row];
+    NSString * photoTitle= photoDictionary[FLICKR_PHOTO_TITLE];
+    NSString * photoSubTitle= photoDictionary[FLICKR_PHOTO_DESCRIPTION];
+    
     
     // Configure the cell...
     
+    cell.textLabel.text = photoTitle;
+    cell.detailTextLabel.text = photoSubTitle;
+    NSLog(@"cell title: [%@], subtitle:[%@]",photoTitle,photoSubTitle);
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
