@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 @import UIKit;
 
+#define MAX_HISTORY_ENTRIES_COUNT 20
+
+#define HISTORY_ENTRY_IMAGE_PATH_KEY @"path" //path of saved image file
+#define HISTORY_ENTRY_IMAGE_INFO_KEY @"info" // photo info dictionary
+
 @interface TPHistory : NSObject
 
 @property (strong,nonatomic) NSMutableDictionary * photosHistory;

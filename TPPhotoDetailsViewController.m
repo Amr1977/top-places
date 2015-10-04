@@ -37,9 +37,14 @@
 -(void)loadData{
     __weak TPPhotoDetailsViewController * weakSelf=self;
     if (self.photoInfoDictionary) {
+        //TODO: if exsts in history don't download and use local copy
         NSLog(@"[%@] received image info dictionary: %@",NSStringFromSelector(_cmd), self.photoInfoDictionary);
         //start animating activity indicator
         [self.activityIndicator startAnimating];
+        if (Nil) {
+            
+        }
+        
         
         void (^block)(BOOL success, NSData * photoData) = ^(BOOL success, NSData * photoData){
             if (success) {

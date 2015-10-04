@@ -13,7 +13,7 @@
 #import "TPPhotoDetailsViewController.h"
 
 @interface TPPhotoListTableViewController ()
-@property (strong,nonatomic) NSArray * photoList;
+
 @end
 
 @implementation TPPhotoListTableViewController
