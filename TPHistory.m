@@ -23,9 +23,9 @@
     
     dispatch_once(&oncePredicate, ^{
         _sharedInstance = [[TPHistory alloc] init];
-        //restore history from user defaults.
-        _sharedInstance.photosIDsArray = [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_IDS_ARRAY_ENTRY_KEY];
-        _sharedInstance.photosHistory = [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_HISTORY_DICTIONARY_KEY];
+        //restore history from user defaults, and make a mutable copy (as it is restored as immutable).
+        _sharedInstance.photosIDsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_IDS_ARRAY_ENTRY_KEY] mutableCopy];
+        _sharedInstance.photosHistory = [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_HISTORY_DICTIONARY_KEY] mutableCopy];
     });
     
     return _sharedInstance;
