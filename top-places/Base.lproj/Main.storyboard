@@ -111,10 +111,10 @@
             </objects>
             <point key="canvasLocation" x="2631" y="96"/>
         </scene>
-        <!--Photo History List-->
+        <!--History Photo List-->
         <scene sceneID="glh-iq-qqj">
             <objects>
-                <tableViewController title="Photo History List" id="hsV-cI-bdb" sceneMemberID="viewController">
+                <tableViewController title="Photo History List" id="hsV-cI-bdb" userLabel="History Photo List" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Qt9-Rk-ynq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -177,10 +177,10 @@
             </objects>
             <point key="canvasLocation" x="3426" y="96"/>
         </scene>
-        <!--Photo View-->
+        <!--History Photo View-->
         <scene sceneID="0rV-YR-3lo">
             <objects>
-                <viewController title="Photo View" id="Isg-cW-e4I" sceneMemberID="viewController">
+                <viewController title="Photo View" id="Isg-cW-e4I" userLabel="History Photo View" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zXr-Tw-tY2"/>
                         <viewControllerLayoutGuide type="bottom" id="mwp-5A-5uw"/>

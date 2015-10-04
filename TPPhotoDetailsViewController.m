@@ -43,8 +43,9 @@
         
         void (^block)(BOOL success, NSData * photoData) = ^(BOOL success, NSData * photoData){
             if (success) {
+                
                 self.photoImageView.image = [UIImage imageWithData:photoData];
-                [TPHistory addUIImage:self.photoImageView.image withInfo:self.photoInfoDictionary];
+                [TPHistory addUIImage:photoData withInfo:self.photoInfoDictionary];
             }
             [weakSelf.activityIndicator stopAnimating];
         };
