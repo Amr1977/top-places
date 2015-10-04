@@ -10,6 +10,11 @@
 #import "FlickrFetcher.h"
 @import UIKit;
 
+//TODO: avoid repeated identical requests by checking before sending the request on a request-list and inserting current request in it.
+@interface TPDataLoader ()
+@property (strong,nonatomic) NSMutableArray * currentInProgressRequestsQueue;//TODO: use this queue to eliminate repeatred identical requests.
+
+@end
 @implementation TPDataLoader
 
 +(void) getFlickrTopPlacesWithCompletion:(void (^)(BOOL , NSArray *))completionBlock{
@@ -53,6 +58,7 @@
     });
 }
 
+//TODO: check cached history, if image already exists (same id) load from local history.
 +(void) getPhoto:(NSDictionary *)photo withCompletionBlock:(void (^)(BOOL success, NSData *result))completionBlock{
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{

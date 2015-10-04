@@ -61,11 +61,15 @@
     }
 }
 
--(NSMutableDictionary *) photosInfoHistory{
+-(NSMutableDictionary *) photosHistory{
     if (!_photosHistory) {
-        _photosHistory= [@[] mutableCopy];
+        _photosHistory= [@{} mutableCopy];
     }
     return _photosHistory;
 }
 
++(BOOL) photoExistsInHistory:(NSString *)photoID{
+    BOOL result=[[TPHistory sharedInstance].photosIDsArray containsObject:photoID];
+    return result;
+}
 @end

@@ -20,4 +20,6 @@
 
 +(instancetype) sharedInstance;
 
++(BOOL) photoExistsInHistory:(NSString *)photoID;
+
 @end
