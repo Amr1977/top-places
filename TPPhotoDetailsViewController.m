@@ -37,15 +37,14 @@
 -(void)loadData{
     __weak TPPhotoDetailsViewController * weakSelf=self;
     if (self.photoInfoDictionary) {
-        NSLog(@"[%@] received image info dicitonary: %@",NSStringFromSelector(_cmd), self.photoInfoDictionary);
+        NSLog(@"[%@] received image info dictionary: %@",NSStringFromSelector(_cmd), self.photoInfoDictionary);
         //start animating activity indicator
         [self.activityIndicator startAnimating];
         
         void (^block)(BOOL success, NSData * photoData) = ^(BOOL success, NSData * photoData){
             if (success) {
-                
                 self.photoImageView.image = [UIImage imageWithData:photoData];
-                [TPHistory addUIImage:photoData withInfo:self.photoInfoDictionary];
+                [TPHistory addImageData:photoData withInfo:self.photoInfoDictionary];
             }
             [weakSelf.activityIndicator stopAnimating];
         };

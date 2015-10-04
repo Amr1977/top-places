@@ -16,7 +16,7 @@
 @property (strong,nonatomic) NSMutableArray * photosIDsArray;
 
 
-+(void) addUIImage:(NSData *) image withInfo:(NSDictionary *)imageInfo;
++(void) addImageData:(NSData *) image withInfo:(NSDictionary *)imageInfo;
 
 +(instancetype) sharedInstance;
 

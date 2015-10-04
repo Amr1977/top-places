@@ -23,6 +23,7 @@
         NSDictionary * parsedJSONDictionary = [NSJSONSerialization JSONObjectWithData:result options:0 error:nil];
         //NSLog(@"Top Places response dictionary: %@",parsedJSONDictionary);//OK
         if (result) {
+            NSLog(@"**************** [%@] Top Places response dictionary: %@",NSStringFromSelector(_cmd),parsedJSONDictionary);//OK
             NSDictionary * placesResults=parsedJSONDictionary[@"places"];
             NSArray * topPlacesArray = placesResults[@"place"];
             //NSLog(@"top places array: %@", topPlacesArray);
@@ -31,7 +32,7 @@
                 completionBlock(true,topPlacesArray);
             }
         }else{
-            NSLog(@"Error fetching top places, %@",[FlickrFetcher URLforTopPlaces]);
+            NSLog(@"!!!!!!!!!!!!!!!! [%@] Error fetching top places, %@",NSStringFromSelector(_cmd),[FlickrFetcher URLforTopPlaces]);
         }
     });
 }
@@ -43,8 +44,8 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSData * result= [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhotosInPlace:flickrPlaceId maxResults:MAX_PHOTOS_COUNT]];
         NSDictionary * parsedJSONDictionary = [NSJSONSerialization JSONObjectWithData:result options:0 error:nil];
-        NSLog(@"PHOTO list response dictionary: %@",parsedJSONDictionary);//OK
         if (result) {
+            NSLog(@"**************** [%@] PHOTO list response dictionary: %@",NSStringFromSelector(_cmd),parsedJSONDictionary);//OK
             NSDictionary * photosResults=parsedJSONDictionary[@"photos"];
             NSArray * photosArray = photosResults[@"photo"];
             //NSLog(@"top places array: %@", topPlacesArray);
@@ -53,7 +54,7 @@
                 completionBlock(true,photosArray);
             }
         }else{
-            NSLog(@"Error fetching photos, [%@]",[FlickrFetcher URLforPhotosInPlace:flickrPlaceId maxResults:MAX_PHOTOS_COUNT]);
+            NSLog(@"!!!!!!!!!!!!!!!! Error fetching photos, [%@]",[FlickrFetcher URLforPhotosInPlace:flickrPlaceId maxResults:MAX_PHOTOS_COUNT]);
         }
     });
 }
@@ -64,11 +65,12 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSData * result = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge]];
         if (result) {
+            NSLog(@"**************** [%@] PHOTO Data received successfully",NSStringFromSelector(_cmd));//OK
             if (completionBlock) {
                 completionBlock(true,result);
             }
         }else{
-            NSLog(@"Error fetching photo, [%@]",[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge]);
+            NSLog(@"!!!!!!!!!!!!!!!! [%@]  Error fetching photo, [%@]",NSStringFromSelector(_cmd),[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge]);
         }
     });
 }
