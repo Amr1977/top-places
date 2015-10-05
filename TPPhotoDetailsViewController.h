@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TPPhotoDetailsViewController : UIViewController
+@interface TPPhotoDetailsViewController : UIViewController <UIScrollViewDelegate>
 
 @property (strong,nonatomic) NSDictionary * photoInfoDictionary;
+
 
 
 

@@ -41,14 +41,14 @@
     void (^block)(BOOL success, NSArray *result) = ^(BOOL success, NSArray *result) {
         if (success) {
             weakSelf.topPlaces=result;
-            NSLog(@"Loaded [%lu] top places entries.",result.count);
+            NSLog(@"Loaded [%lu] top places entries.",(unsigned long)result.count);
             self.countryHashedPlaces = [self hashPlacesByCountry];
             //NSLog(@"Country-hashed-places: %@",[self countryHashedPlaces]);
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
+        //dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             [weakSelf.refreshControl endRefreshing];
-        });
+       // });
     };
     
     [TPDataLoader getFlickrTopPlacesWithCompletion:block];
@@ -113,7 +113,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSLog(@"country count: %lu", self.countries.count);
+    NSLog(@"country count: %lu", (unsigned long)self.countries.count);
     return self.countries.count;
 }
 

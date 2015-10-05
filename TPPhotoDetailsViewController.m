@@ -13,7 +13,9 @@
 
 @interface TPPhotoDetailsViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (strong,nonatomic) NSData * photoData;
@@ -25,9 +27,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title=self.photoInfoDictionary[@"title"];
+    
     //TODO: adjust activity indicator size and position
     [self loadData];
     
+    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewPinched:)];
+    UIPanGestureRecognizer *panGestureRecognizer=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewPan:)];
+    
+    [self.scrollView addGestureRecognizer:pinchGestureRecognizer];
+    [self.scrollView addGestureRecognizer:panGestureRecognizer];
+}
+
+-(void) scrollViewPinched:(UIPinchGestureRecognizer *)recognizer{
+    NSLog(@"pinch gesture detected.");
+    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+    recognizer.scale = 1;
+}
+
+-(void) scrollViewPan:(UIPanGestureRecognizer *)recognizer{
+    NSLog(@"pan gesture detected.");
+    CGPoint translation = [recognizer translationInView:self.view];
+    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
+                                         recognizer.view.center.y + translation.y);
+    [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
 }
 
 /**
@@ -48,6 +70,8 @@
             UIImage * imageFromFile=[UIImage imageWithContentsOfFile:filePath];
             if (imageFromFile) {
                 self.photoImageView.image  = imageFromFile;
+                self.photoImageView.frame = (CGRect){.origin=CGPointMake(0.0f, 0.0f), .size=imageFromFile.size};
+                self.scrollView.contentSize = imageFromFile.size;
                 NSLog(@"image loaded.");
             }else{
                 NSLog(@"!!!!!!!!!!!!!file not found.[%@]", filePath);
@@ -78,6 +102,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation
