@@ -23,7 +23,7 @@
         NSDictionary * parsedJSONDictionary = [NSJSONSerialization JSONObjectWithData:result options:0 error:nil];
         //NSLog(@"Top Places response dictionary: %@",parsedJSONDictionary);//OK
         if (result) {
-            NSLog(@"**************** [%@] Top Places response dictionary: %@",NSStringFromSelector(_cmd),parsedJSONDictionary);//OK
+            //NSLog(@"**************** [%@] Top Places response dictionary: %@",NSStringFromSelector(_cmd),parsedJSONDictionary);//OK
             NSDictionary * placesResults=parsedJSONDictionary[@"places"];
             NSArray * topPlacesArray = placesResults[@"place"];
             //NSLog(@"top places array: %@", topPlacesArray);
@@ -45,7 +45,7 @@
         NSData * result= [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhotosInPlace:flickrPlaceId maxResults:MAX_PHOTOS_COUNT]];
         NSDictionary * parsedJSONDictionary = [NSJSONSerialization JSONObjectWithData:result options:0 error:nil];
         if (result) {
-            NSLog(@"**************** [%@] PHOTO list response dictionary: %@",NSStringFromSelector(_cmd),parsedJSONDictionary);//OK
+            //NSLog(@"**************** [%@] PHOTO list response dictionary: %@",NSStringFromSelector(_cmd),parsedJSONDictionary);//OK
             NSDictionary * photosResults=parsedJSONDictionary[@"photos"];
             NSArray * photosArray = photosResults[@"photo"];
             //NSLog(@"top places array: %@", topPlacesArray);

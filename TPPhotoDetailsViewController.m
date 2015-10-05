@@ -9,6 +9,7 @@
 #import "TPPhotoDetailsViewController.h"
 #import "TPDataLoader.h"
 #import "TPHistory.h"
+#import "FlickrFetcher.h"
 
 @interface TPPhotoDetailsViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
@@ -41,22 +42,37 @@
         NSLog(@"[%@] received image info dictionary: %@",NSStringFromSelector(_cmd), self.photoInfoDictionary);
         //start animating activity indicator
         [self.activityIndicator startAnimating];
-        if (Nil) {
-            
-        }
-        
-        
-        void (^block)(BOOL success, NSData * photoData) = ^(BOOL success, NSData * photoData){
-            if (success) {
-                self.photoImageView.image = [UIImage imageWithData:photoData];
-                [TPHistory addImageData:photoData withInfo:self.photoInfoDictionary];
+        NSString * photoId=self.photoInfoDictionary[FLICKR_PHOTO_ID];
+        if ([TPHistory photoExistsInHistory:photoId]) {
+            //load from file path stored in the history structure
+            NSString * filePath=[TPHistory sharedInstance].photosHistory[photoId][HISTORY_ENTRY_IMAGE_PATH_KEY];
+            NSLog(@"[%@] starting to load image from filePath: [%@]", NSStringFromSelector(_cmd), filePath);
+            UIImage * imageFromFile=[UIImage imageWithContentsOfFile:filePath];
+            if (imageFromFile) {
+                self.photoImageView.image  = imageFromFile;
+                NSLog(@"image loaded.");
+            }else{
+                NSLog(@"!!!!!!!!!!!!![%@][%@] file not found.[%@]", NSStringFromClass([self class]),NSStringFromSelector(_cmd), filePath);
+                //TODO: delete history entry of the deleted file.
+                [[TPHistory sharedInstance].photosIDsArray removeObject:photoId];
+                [[TPHistory sharedInstance].photosHistory removeObjectForKey:photoId];
+                [TPHistory updateUserDefaults];
+                [self.navigationController popViewControllerAnimated:YES];
             }
-            [weakSelf.activityIndicator stopAnimating];
-        };
-        
-        //fetch image data
-        [TPDataLoader getPhoto:self.photoInfoDictionary withCompletionBlock:block];
-        
+            
+            [self.activityIndicator stopAnimating];
+        }else{
+            void (^block)(BOOL success, NSData * photoData) = ^(BOOL success, NSData * photoData){
+                if (success) {
+                    self.photoImageView.image = [UIImage imageWithData:photoData];
+                    [TPHistory addImageData:photoData withInfo:self.photoInfoDictionary];
+                }
+                [weakSelf.activityIndicator stopAnimating];
+            };
+            
+            //fetch image data
+            [TPDataLoader getPhoto:self.photoInfoDictionary withCompletionBlock:block];
+        }
     }
 }
 

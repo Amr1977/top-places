@@ -35,7 +35,7 @@
     void (^block)(BOOL success, NSArray *result) = ^(BOOL success, NSArray *result) {
         if (success) {
             weakSelf.photoList=result;
-            NSLog(@"Recieved photo list: %@",self.photoList);
+            //NSLog(@"Recieved photo list: %@",self.photoList);
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -89,7 +89,7 @@
     // Configure the cell...
     cell.textLabel.text = photoTitle;
     cell.detailTextLabel.text = photoSubTitle;
-    NSLog(@"cell title: [%@], subtitle:[%@]",photoTitle,photoSubTitle);
+    //NSLog(@"cell title: [%@], subtitle:[%@]",photoTitle,photoSubTitle);
     return cell;
 }
 

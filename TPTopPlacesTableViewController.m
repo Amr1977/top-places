@@ -43,7 +43,7 @@
             weakSelf.topPlaces=result;
             NSLog(@"Loaded [%lu] top places entries.",result.count);
             self.countryHashedPlaces = [self hashPlacesByCountry];
-            NSLog(@"Country-hashed-places: %@",[self countryHashedPlaces]);
+            //NSLog(@"Country-hashed-places: %@",[self countryHashedPlaces]);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
@@ -76,7 +76,7 @@
             result[@"state"]=stringParts[stringParts.count-2];
         }
     }
-    NSLog(@"From [%@] Extracted Country data : [%@]",commaSeparatedRegionContent,result);
+    //NSLog(@"From [%@] Extracted Country data : [%@]",commaSeparatedRegionContent,result);
     return result;
 }
 
@@ -99,13 +99,13 @@
         }
     }
     self.countries=[countries sortedArrayUsingSelector:@selector(compare:)];
-    NSLog(@"Created Country-hashed place dictionary: %@",hashedPlaces);
+    //NSLog(@"Created Country-hashed place dictionary: %@",hashedPlaces);
     //TODO: sort on woe_name part
     for (NSString * countryName in countries) {
         hashedPlaces[countryName] = [hashedPlaces[countryName] sortedArrayUsingComparator:^(NSDictionary * obj1, NSDictionary * obj2){
             return [obj1[SORT_KEY] compare: obj2[SORT_KEY]];
         }];
-        NSLog(@"Sorted places of country[%@] : %@", countryName,hashedPlaces[countryName]);
+        //NSLog(@"Sorted places of country[%@] : %@", countryName,hashedPlaces[countryName]);
     }
     return hashedPlaces;
 }

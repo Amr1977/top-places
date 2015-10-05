@@ -37,8 +37,8 @@
         _photosIDsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_IDS_ARRAY_ENTRY_KEY] mutableCopy];
         _photosHistory = [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_HISTORY_DICTIONARY_KEY] mutableCopy];
         
-        NSLog(@"IDs array: %@",_photosIDsArray);
-        NSLog(@"photos history: %@", _photosHistory);
+        //NSLog(@"IDs array: %@",_photosIDsArray);
+       // NSLog(@"photos history: %@", _photosHistory);
     }
     return self;
 }
@@ -64,7 +64,7 @@
         
         //NSLog(@"image index in the history list: %lu",(unsigned long)indexOfImage);
         if (![[TPHistory sharedInstance].photosIDsArray containsObject:photoID]) {
-            NSLog(@"[%@] entry not exists [%@], creating history entry ....", NSStringFromSelector(_cmd), photoID);
+            NSLog(@"entry not exists [%@], creating history entry ....",  photoID);
             NSArray *pathArr = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
             NSString *path = [[pathArr objectAtIndex:0]
                               stringByAppendingPathComponent:imageInfo[FLICKR_PHOTO_ID]];
@@ -92,9 +92,9 @@
                 //delete file
                 
                 if([TPHistory removeFile:historyEntry[HISTORY_ENTRY_IMAGE_PATH_KEY]]){
-                    NSLog(@"[%@] removed file [%@]", NSStringFromSelector(_cmd), path);
+                    NSLog(@"removed file [%@]", path);
                 }else{
-                    NSLog(@"[%@] <<<<<<<<< error removing file [%@]", NSStringFromSelector(_cmd), path);
+                    NSLog(@"<<<<<<<<< error removing file [%@]", path);
                 }
 
                 //delete history entry
@@ -102,7 +102,7 @@
                 [[TPHistory sharedInstance].photosHistory removeObjectForKey:photoToBeDeletedID];
             }
         }else{
-            NSLog(@"[%@] entry already exists [%@]", NSStringFromSelector(_cmd), photoID);
+            NSLog(@"entry already exists [%@]",photoID);
             //move it to the start/top
             if ([[TPHistory sharedInstance].photosIDsArray indexOfObject:photoID]!=0) {
                 [[TPHistory sharedInstance].photosIDsArray removeObject:photoID];//remove from current position
@@ -111,7 +111,7 @@
         }
         [TPHistory updateUserDefaults];
     } else{
-        NSLog(@"[%@] invalid parameters: [%@] , [%@].",NSStringFromSelector(_cmd), image, imageInfo );
+        NSLog(@"invalid parameters: [%@] , [%@].",image, imageInfo );
     }
 }
 
@@ -120,7 +120,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error;
     BOOL result = [fileManager removeItemAtPath:filePath error:&error];
-    NSLog(@"[%@] result: [%@]", NSStringFromSelector(_cmd), result? @"File Deleted.":@"Error deleting file.");
+    NSLog(@" result: [%@]", result? @"File Deleted.":@"Error deleting file.");
     return result;
 }
 
@@ -128,7 +128,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:[[TPHistory sharedInstance].photosIDsArray copy] forKey:USER_DEFAULTS_IDS_ARRAY_ENTRY_KEY];
     [[NSUserDefaults standardUserDefaults] setObject:[[TPHistory sharedInstance].photosHistory copy] forKey:USER_DEFAULTS_HISTORY_DICTIONARY_KEY];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    NSLog(@"Updated user defaults structures: photosIDsArray: %@, /n photosHistory: %@",[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_IDS_ARRAY_ENTRY_KEY], [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_HISTORY_DICTIONARY_KEY]);
+    //NSLog(@"Updated user defaults structures: photosIDsArray: %@, /n photosHistory: %@",[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_IDS_ARRAY_ENTRY_KEY], [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_HISTORY_DICTIONARY_KEY]);
 }
 
 -(NSMutableDictionary *) photosHistory{

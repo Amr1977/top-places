@@ -24,9 +24,9 @@
             [photoListFromUserDefaults addObject:photoHistoryEntryDictionary[HISTORY_ENTRY_IMAGE_INFO_KEY]];
         }
     }
-    
-    self.photoList = photoListFromUserDefaults;
-    
+    self.photoList = [photoListFromUserDefaults mutableCopy];
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
 }
 
 
@@ -50,6 +50,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self performSegueWithIdentifier:@"history_photo_details" sender:nil];
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    NSLog(@"[%@][%@]",NSStringFromClass([self class]),NSStringFromSelector(_cmd));
+    [self loadData];
+    
 }
 
 @end

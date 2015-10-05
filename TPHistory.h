@@ -27,4 +27,5 @@
 
 +(BOOL) photoExistsInHistory:(NSString *)photoID;
 
++(void) updateUserDefaults;
 @end
