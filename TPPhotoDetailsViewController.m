@@ -24,10 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.navigationItem.title=self.photoInfoDictionary[@"title"];
     //TODO: adjust activity indicator size and position
-    
-    
     [self loadData];
     
 }
@@ -39,20 +37,20 @@
     __weak TPPhotoDetailsViewController * weakSelf=self;
     if (self.photoInfoDictionary) {
         //TODO: if exsts in history don't download and use local copy
-        NSLog(@"[%@] received image info dictionary: %@",NSStringFromSelector(_cmd), self.photoInfoDictionary);
+        NSLog(@"received image info dictionary: %@", self.photoInfoDictionary);
         //start animating activity indicator
         [self.activityIndicator startAnimating];
         NSString * photoId=self.photoInfoDictionary[FLICKR_PHOTO_ID];
         if ([TPHistory photoExistsInHistory:photoId]) {
             //load from file path stored in the history structure
             NSString * filePath=[TPHistory sharedInstance].photosHistory[photoId][HISTORY_ENTRY_IMAGE_PATH_KEY];
-            NSLog(@"[%@] starting to load image from filePath: [%@]", NSStringFromSelector(_cmd), filePath);
+            NSLog(@"starting to load image from filePath: [%@]",  filePath);
             UIImage * imageFromFile=[UIImage imageWithContentsOfFile:filePath];
             if (imageFromFile) {
                 self.photoImageView.image  = imageFromFile;
                 NSLog(@"image loaded.");
             }else{
-                NSLog(@"!!!!!!!!!!!!![%@][%@] file not found.[%@]", NSStringFromClass([self class]),NSStringFromSelector(_cmd), filePath);
+                NSLog(@"!!!!!!!!!!!!!file not found.[%@]", filePath);
                 //TODO: delete history entry of the deleted file.
                 [[TPHistory sharedInstance].photosIDsArray removeObject:photoId];
                 [[TPHistory sharedInstance].photosHistory removeObjectForKey:photoId];
