@@ -17,6 +17,7 @@
 @implementation TPPhotoHistoryListViewController
 
 -(void) loadData{
+    [TPHistory cleanHistory];
     NSMutableArray * photoListFromUserDefaults= [@[] mutableCopy];
     for (NSString * photoId in [TPHistory sharedInstance].photosIDsArray) {
         NSDictionary * photoHistoryEntryDictionary=[TPHistory sharedInstance].photosHistory[photoId];

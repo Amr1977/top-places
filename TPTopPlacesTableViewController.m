@@ -10,7 +10,7 @@
 #import "TPDataLoader.h"
 #import "FlickrFetcher.h"
 #import "TPPhotoListTableViewController.h"
-
+#import "TPHistory.h"
 @interface TPTopPlacesTableViewController ()
 
 @property (strong,nonatomic) NSArray * countries;
@@ -23,9 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"class:[%@], method[%@] ...", self.class,NSStringFromSelector(_cmd));
-    [self setRefreshControl];
-    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,6 +33,7 @@
 #pragma mark - loadData
 
 -(void) loadData{
+    [TPHistory cleanHistory];
     [self.refreshControl beginRefreshing];
     __weak TPTopPlacesTableViewController * weakSelf = self;
     void (^block)(BOOL success, NSArray *result) = ^(BOOL success, NSArray *result) {

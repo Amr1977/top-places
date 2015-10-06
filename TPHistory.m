@@ -36,6 +36,7 @@
         //restore history from user defaults, and make a mutable copy (as it is restored as immutable).
         _photosIDsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_IDS_ARRAY_ENTRY_KEY] mutableCopy];
         _photosHistory = [[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_HISTORY_DICTIONARY_KEY] mutableCopy];
+       
         
         //NSLog(@"IDs array: %@",_photosIDsArray);
        // NSLog(@"photos history: %@", _photosHistory);
@@ -125,9 +126,11 @@
 }
 
 +(void) updateUserDefaults{
+    NSLog(@"Updating NSUserDefaults ...");
     [[NSUserDefaults standardUserDefaults] setObject:[[TPHistory sharedInstance].photosIDsArray copy] forKey:USER_DEFAULTS_IDS_ARRAY_ENTRY_KEY];
     [[NSUserDefaults standardUserDefaults] setObject:[[TPHistory sharedInstance].photosHistory copy] forKey:USER_DEFAULTS_HISTORY_DICTIONARY_KEY];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"Updating NSUserDefaults Done");
     //NSLog(@"Updated user defaults structures: photosIDsArray: %@, /n photosHistory: %@",[[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_IDS_ARRAY_ENTRY_KEY], [[NSUserDefaults standardUserDefaults] objectForKey:USER_DEFAULTS_HISTORY_DICTIONARY_KEY]);
 }
 
@@ -145,8 +148,34 @@
     return _photosIDsArray;
 }
 
-+(BOOL) photoExistsInHistory:(NSString *)photoID{
++(BOOL) isPhotoIDExistInHistory:(NSString *)photoID{
     BOOL result=[[TPHistory sharedInstance].photosIDsArray containsObject:photoID];
+    NSLog(@"Photo [%@] %@ in history.",photoID, result?@"Exists":@"Does NOT Exist");
     return result;
+}
+
++(void) cleanHistory{
+    if ([TPHistory sharedInstance].photosHistory.count>0) {
+        NSLog(@"Cleanning any invalid History entries ...")
+        //Collect entries in the history of non-existing files
+        NSMutableArray * entriesToBeDeleted=[@[] mutableCopy];
+        for (NSString * photoID in [TPHistory sharedInstance].photosIDsArray) {
+            NSString * filePath=[TPHistory sharedInstance].photosHistory[photoID][HISTORY_ENTRY_IMAGE_PATH_KEY];
+            if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+                NSLog(@"Removeing History entry for [%@]",filePath);
+                [entriesToBeDeleted addObject:photoID];
+            }
+        }
+        
+        //Clean up orphan history entries
+        for (NSString * photoID in entriesToBeDeleted) {
+            NSLog(@"Removing History entry for photoID: [%@]",photoID);
+            [[TPHistory sharedInstance].photosIDsArray removeObject:photoID];
+            [[TPHistory sharedInstance].photosHistory removeObjectForKey:photoID];
+        }
+        if (entriesToBeDeleted.count > 0) {
+            [TPHistory updateUserDefaults];
+        }
+    }
 }
 @end

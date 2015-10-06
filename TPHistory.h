@@ -25,7 +25,8 @@
 
 +(instancetype) sharedInstance;
 
-+(BOOL) photoExistsInHistory:(NSString *)photoID;
++(BOOL) isPhotoIDExistInHistory:(NSString *)photoID;
 
 +(void) updateUserDefaults;
++(void) cleanHistory;
 @end

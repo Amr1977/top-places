@@ -65,12 +65,14 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSData * result = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge]];
         if (result) {
-            NSLog(@"**************** [%@] PHOTO Data received successfully",NSStringFromSelector(_cmd));//OK
+            NSLog(@"**************** PHOTO Data received successfully");//OK
             if (completionBlock) {
-                completionBlock(true,result);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(true,result);
+                });
             }
         }else{
-            NSLog(@"!!!!!!!!!!!!!!!! [%@]  Error fetching photo, [%@]",NSStringFromSelector(_cmd),[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge]);
+            NSLog(@"!!!!!!!!!!!!!!!! Error fetching photo, [%@]",[FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge]);
         }
     });
 }

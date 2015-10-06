@@ -8,6 +8,7 @@
 
 #import "TPTabBarViewController.h"
 #import "TPDataLoader.h"
+#import "TPHistory.h"
 
 @interface TPTabBarViewController ()
 
@@ -18,6 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [TPHistory cleanHistory] ;
+    
 }
 
 
