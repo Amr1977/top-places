@@ -113,7 +113,7 @@
                     self.photoImageView.image = [UIImage imageWithData:photoData];
                     NSLog(@"Creating image from data complete @ [%@]",[formatter stringFromDate:[NSDate new]]);
                     NSLog(@"image size: [%.2f]KB",(float)photoData.length/1024.0f);
-                    [self adjustFrameSize];
+                    //[self adjustFrameSize];
                     [TPHistory addImageData:photoData withInfo:self.photoInfoDictionary];
                 }
                 [weakSelf.activityIndicator stopAnimating];
