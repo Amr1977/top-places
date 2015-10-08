@@ -12,17 +12,22 @@
 #import "FlickrFetcher.h"
 
 @interface TPPhotoDetailsViewController ()
-@property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
+@property (strong, nonatomic) UIImageView *photoImageView;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) UIScrollView *scrollView;
 
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @property (strong,nonatomic) NSData * photoData;
+@property (strong,nonatomic) UIImage * image;
+
+
 
 @end
 
 @implementation TPPhotoDetailsViewController
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,17 +36,58 @@
     //TODO: adjust activity indicator size and position
     [self loadData];
     
-    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewPinched:)];
-    UIPanGestureRecognizer *panGestureRecognizer=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewPan:)];
+    CGRect fullScreenRect=[[UIScreen mainScreen] applicationFrame];
+
+    self.scrollView=[[UIScrollView alloc] initWithFrame:fullScreenRect];
+    self.photoImageView=[[UIImageView alloc] init];
+    self.activityIndicator= [[UIActivityIndicatorView alloc] init];
     
-    [self.scrollView addGestureRecognizer:pinchGestureRecognizer];
-    [self.scrollView addGestureRecognizer:panGestureRecognizer];
+    
+    [self.scrollView addSubview:self.photoImageView];
+    [self.view addSubview:self.scrollView];
+    [self.view addSubview:self.activityIndicator];
+    
+    //UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewPinched:)];
+    //UIPanGestureRecognizer *panGestureRecognizer=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewPan:)];
+    
+    //[self.scrollView addGestureRecognizer:pinchGestureRecognizer];
+    //[self.scrollView addGestureRecognizer:panGestureRecognizer];
+}
+
+-(void) photoData:(NSData *)data{
+    _photoData=data;
+    self.image = [UIImage imageWithData:data];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSString *formatString = @"yyyy-MM-dd'T'HH:mm:ss.SSS";
+    [formatter setDateFormat:formatString];
+    NSLog(@"Creating image from data complete @ [%@]",[formatter stringFromDate:[NSDate new]]);
+    NSLog(@"image size: [%.2f]KB",(float)data.length/1024.0f);
+    NSLog(@"image dimensions: [w: %.2f, h: .2f]",self.image.size.width,self.image.size.height);
+    
+    [self adjustFrameSize];
+    [TPHistory addImageData:data withInfo:self.photoInfoDictionary];
+    [self.activityIndicator stopAnimating];
+
 }
 
 
 -(void) adjustFrameSize{
     NSLog(@"adjusting frames ...");
+    //adjust photo image view frame to the size of the loaded image
+    CGSize imageSize=self.image.size;
+    CGRect photoImageViewFrame =  CGRectMake(0, 0, imageSize.width, imageSize.height);
+    self.photoImageView.frame=photoImageViewFrame;
+    
+    
+    self.photoImageView.frame=photoImageViewFrame;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSLog(@"Creating image from data started at [%@]",[formatter stringFromDate:[NSDate new]]);
+    //self.photoImageView.image = [UIImage imageWithData:photoData];
 
+    
+    //adjust scroll view content size to be equal to photo image view frame size
+    self.scrollView.contentSize=self.photoImageView.frame.size;
     
     CGRect scrollViewFrame = self.scrollView.frame;
     CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
@@ -78,9 +124,10 @@
 -(void) scrollViewPinched:(UIPinchGestureRecognizer *)recognizer{
     NSLog(@"pinch gesture detected.");
     //self.photoImageView.contentMode = UIViewContentModeCenter;
-    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
-    recognizer.scale = 1;
-    //NSLog(@"scroll View frame: [%@], image view frame:[%@]",self.scrollView.frame,self.photoImageView.frame);
+    //recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+    //recognizer.scale = 1;
+    
+    NSLog(@"scale: [%.2f]scroll View frame: [%.2f,%.2f], image view size:[%.2f,%.2f]",recognizer.scale,self.scrollView.frame.size.width,self.scrollView.frame.size.height,self.photoImageView.frame.size.width,self.photoImageView.frame.size.height);
 }
 
 -(void) scrollViewPan:(UIPanGestureRecognizer *)recognizer{
@@ -94,32 +141,26 @@
 }
 
 /**
- Fetches and displays the image data of currently selected photo info dictionary.
+ Starts fetching image data of currently selected photo info dictionary.
  */
 -(void)loadData{
     __weak TPPhotoDetailsViewController * weakSelf=self;
     if (self.photoInfoDictionary) {
         NSLog(@"received image info dictionary: %@", self.photoInfoDictionary);
+        
         //start animating activity indicator
         [self.activityIndicator startAnimating];
         NSString * photoId=self.photoInfoDictionary[FLICKR_PHOTO_ID];
         if (!([self loadHistoryEntryFileImageWithPhotoId:photoId])) {
+
+            //define download completion block
             void (^block)(BOOL success, NSData * photoData) = ^(BOOL success, NSData * photoData){
                 if (success) {
-                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                    NSString *formatString = @"yyyy-MM-dd'T'HH:mm:ss.SSS";
-                    [formatter setDateFormat:formatString];
-                    NSLog(@"Creating image from data started at [%@]",[formatter stringFromDate:[NSDate new]]);
-                    self.photoImageView.image = [UIImage imageWithData:photoData];
-                    NSLog(@"Creating image from data complete @ [%@]",[formatter stringFromDate:[NSDate new]]);
-                    NSLog(@"image size: [%.2f]KB",(float)photoData.length/1024.0f);
-                    //[self adjustFrameSize];
-                    [TPHistory addImageData:photoData withInfo:self.photoInfoDictionary];
+                    weakSelf.photoData = photoData;
                 }
-                [weakSelf.activityIndicator stopAnimating];
             };
             
-            //fetch image data
+            //start fetch image data
             [TPDataLoader getPhoto:self.photoInfoDictionary withCompletionBlock:block];
         }
     }
