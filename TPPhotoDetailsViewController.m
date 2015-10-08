@@ -39,8 +39,16 @@
     CGRect fullScreenRect=[[UIScreen mainScreen] applicationFrame];
 
     self.scrollView=[[UIScrollView alloc] initWithFrame:fullScreenRect];
-    self.photoImageView=[[UIImageView alloc] init];
+    self.scrollView.backgroundColor=[UIColor blackColor];
+    self.scrollView.contentSize=CGSizeMake(1024, 1024);
+    self.activityIndicator.center=self.scrollView.center;
+    
+    self.photoImageView=[[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    self.photoImageView.backgroundColor= [UIColor whiteColor];
+    self.photoImageView.center=self.scrollView.center;
+    
     self.activityIndicator= [[UIActivityIndicatorView alloc] init];
+    
     
     
     [self.scrollView addSubview:self.photoImageView];
@@ -54,21 +62,27 @@
     //[self.scrollView addGestureRecognizer:panGestureRecognizer];
 }
 
--(void) photoData:(NSData *)data{
-    _photoData=data;
-    self.image = [UIImage imageWithData:data];
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    CGRect fullScreenRect=[[UIScreen mainScreen] applicationFrame];
+    self.scrollView.frame=fullScreenRect;
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    NSString *formatString = @"yyyy-MM-dd'T'HH:mm:ss.SSS";
-    [formatter setDateFormat:formatString];
-    NSLog(@"Creating image from data complete @ [%@]",[formatter stringFromDate:[NSDate new]]);
-    NSLog(@"image size: [%.2f]KB",(float)data.length/1024.0f);
+}
+
+-(void) setImage:(UIImage *)image{
+    _image =image;
+    
     NSLog(@"image dimensions: [w: %.2f, h: .2f]",self.image.size.width,self.image.size.height);
     
     [self adjustFrameSize];
-    [TPHistory addImageData:data withInfo:self.photoInfoDictionary];
+    
     [self.activityIndicator stopAnimating];
+}
 
+-(void) setPhotoData:(NSData *)data{
+    _photoData=data;
+    NSLog(@"image size: [%.2f]KB",(float)data.length/1024.0f);
+    [TPHistory addImageData:data withInfo:self.photoInfoDictionary];
+    [self setImage: [UIImage imageWithData:data]];
 }
 
 
@@ -78,28 +92,24 @@
     CGSize imageSize=self.image.size;
     CGRect photoImageViewFrame =  CGRectMake(0, 0, imageSize.width, imageSize.height);
     self.photoImageView.frame=photoImageViewFrame;
+    self.photoImageView.image=self.image;
     
-    
-    self.photoImageView.frame=photoImageViewFrame;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    NSLog(@"Creating image from data started at [%@]",[formatter stringFromDate:[NSDate new]]);
-    //self.photoImageView.image = [UIImage imageWithData:photoData];
-
     
     //adjust scroll view content size to be equal to photo image view frame size
-    self.scrollView.contentSize=self.photoImageView.frame.size;
+    self.scrollView.contentSize=imageSize;
     
-    CGRect scrollViewFrame = self.scrollView.frame;
-    CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
-    CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
-    CGFloat minScale = MIN(scaleWidth, scaleHeight);
-    self.scrollView.minimumZoomScale = minScale;
+    
+    //CGRect scrollViewFrame = self.scrollView.frame;
+    //CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
+    //CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
+    //CGFloat minScale = MIN(scaleWidth, scaleHeight);
+   //self.scrollView.minimumZoomScale = minScale;
     
     // 5
-    self.scrollView.maximumZoomScale = 1.0f;
-    self.scrollView.zoomScale = minScale;
-    [self centerScrollViewContents];
-    self.activityIndicator.frame=CGRectMake(0, 0, 100, 100);
+    //self.scrollView.maximumZoomScale = 1.0f;
+    //self.scrollView.zoomScale = minScale;
+    //[self centerScrollViewContents];
+
 }
 
 - (void)centerScrollViewContents {
@@ -156,10 +166,9 @@
             //define download completion block
             void (^block)(BOOL success, NSData * photoData) = ^(BOOL success, NSData * photoData){
                 if (success) {
-                    weakSelf.photoData = photoData;
+                    [weakSelf setPhotoData:photoData];
                 }
             };
-            
             //start fetch image data
             [TPDataLoader getPhoto:self.photoInfoDictionary withCompletionBlock:block];
         }
