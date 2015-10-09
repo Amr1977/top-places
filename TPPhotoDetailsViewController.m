@@ -56,7 +56,9 @@
     self.photoImageView.center=self.scrollView.center;
     self.activityIndicator.center=self.scrollView.center;
     self.activityIndicator.activityIndicatorViewStyle= UIActivityIndicatorViewStyleWhiteLarge;
-    
+    self.scrollView.delegate=self;
+    self.scrollView.minimumZoomScale=0.5;
+    self.scrollView.maximumZoomScale=6.0;
     
     [self loadData];
     
@@ -107,6 +109,11 @@
     self.scrollView.minimumZoomScale=0.1;
     self.scrollView.zoomScale=0.5;
     NSLog(@"adjusting frames ... Done.");
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.photoImageView;
 }
 
 /**
