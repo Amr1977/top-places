@@ -41,12 +41,9 @@
             weakSelf.topPlaces=result;
             NSLog(@"Loaded [%lu] top places entries.",(unsigned long)result.count);
             self.countryHashedPlaces = [self hashPlacesByCountry];
-            //NSLog(@"Country-hashed-places: %@",[self countryHashedPlaces]);
         }
-        //dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [weakSelf.refreshControl endRefreshing];
-       // });
+        [self.tableView reloadData];
+        [weakSelf.refreshControl endRefreshing];
     };
     
     [TPDataLoader getFlickrTopPlacesWithCompletion:block];
@@ -74,7 +71,6 @@
             result[@"state"]=stringParts[stringParts.count-2];
         }
     }
-    //NSLog(@"From [%@] Extracted Country data : [%@]",commaSeparatedRegionContent,result);
     return result;
 }
 
@@ -85,8 +81,8 @@
 -(NSDictionary *) hashPlacesByCountry{
     NSMutableDictionary * hashedPlaces=[@{} mutableCopy];
     NSMutableArray * countries = [@[] mutableCopy];
+
     //creating places hashed on country part
-    
     for (NSDictionary * placeDictionary in self.topPlaces) {
         NSString * countryName=[self getCountryCityAndStateName:placeDictionary[@"_content"]][@"country"];
         if (!hashedPlaces[countryName]) {
@@ -97,13 +93,11 @@
         }
     }
     self.countries=[countries sortedArrayUsingSelector:@selector(compare:)];
-    //NSLog(@"Created Country-hashed place dictionary: %@",hashedPlaces);
-    //TODO: sort on woe_name part
+
     for (NSString * countryName in countries) {
         hashedPlaces[countryName] = [hashedPlaces[countryName] sortedArrayUsingComparator:^(NSDictionary * obj1, NSDictionary * obj2){
             return [obj1[SORT_KEY] compare: obj2[SORT_KEY]];
         }];
-        //NSLog(@"Sorted places of country[%@] : %@", countryName,hashedPlaces[countryName]);
     }
     return hashedPlaces;
 }

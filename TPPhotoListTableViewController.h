@@ -10,6 +10,7 @@
 #import "RefreshableTableViewController.h"
 
 @interface TPPhotoListTableViewController : RefreshableTableViewController
+
 @property (strong,nonatomic) NSString *placeId;
 @property (strong,nonatomic) NSArray * photoList;
 

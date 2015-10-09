@@ -8,10 +8,6 @@
 
 #import "RefreshableTableViewController.h"
 
-@interface RefreshableTableViewController ()
-
-@end
-
 @implementation RefreshableTableViewController
 
 - (void)viewDidLoad {
@@ -26,8 +22,6 @@
     self.refreshControl = refreshControl;
     [self.refreshControl addTarget:self action:@selector(loadData) forControlEvents:UIControlEventValueChanged];
 }
-
-
 
 #pragma mark - Table view data source
 

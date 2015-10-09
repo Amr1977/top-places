@@ -10,6 +10,4 @@
 
 @interface TPTabBarViewController : UITabBarController
 
-
-
 @end

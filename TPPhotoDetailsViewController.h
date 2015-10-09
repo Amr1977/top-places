@@ -12,7 +12,4 @@
 
 @property (strong,nonatomic) NSDictionary * photoInfoDictionary;
 
-
-
-
 @end
