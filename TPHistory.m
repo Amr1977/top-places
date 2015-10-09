@@ -156,7 +156,7 @@
 
 +(void) cleanHistory{
     if ([TPHistory sharedInstance].photosHistory.count>0) {
-        NSLog(@"Cleanning any invalid History entries ...")
+        
         //Collect entries in the history of non-existing files
         NSMutableArray * entriesToBeDeleted=[@[] mutableCopy];
         for (NSString * photoID in [TPHistory sharedInstance].photosIDsArray) {
@@ -174,6 +174,7 @@
             [[TPHistory sharedInstance].photosHistory removeObjectForKey:photoID];
         }
         if (entriesToBeDeleted.count > 0) {
+            NSLog(@"Cleanned invalid History entries.");
             [TPHistory updateUserDefaults];
         }
     }
