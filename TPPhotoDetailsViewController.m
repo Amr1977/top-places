@@ -107,7 +107,12 @@
     self.scrollView.contentSize=imageSize;
     self.scrollView.maximumZoomScale=3;
     self.scrollView.minimumZoomScale=0.1;
-    self.scrollView.zoomScale=0.5;
+    
+    CGRect fullScreenRect=[[UIScreen mainScreen] applicationFrame];
+    CGFloat verticalRatio= fullScreenRect.size.width / self.image.size.width;
+    CGFloat horizontalRatio = fullScreenRect.size.height / self.image.size.height;
+    self.scrollView.zoomScale=MIN(verticalRatio, horizontalRatio);
+    
     NSLog(@"adjusting frames ... Done.");
 }
 
