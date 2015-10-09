@@ -37,6 +37,9 @@
     
     
     CGRect fullScreenRect=[[UIScreen mainScreen] applicationFrame];
+    fullScreenRect.origin.y=self.navigationController.navigationBar.frame.size.height;
+    fullScreenRect.size.height-=self.tabBarController.tabBar.frame.size.height;
+    
 
     self.scrollView=[[UIScrollView alloc] initWithFrame:fullScreenRect];
     self.scrollView.backgroundColor=[UIColor blackColor];
@@ -71,6 +74,9 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     CGRect fullScreenRect=[[UIScreen mainScreen] applicationFrame];
+    fullScreenRect.origin.y=self.navigationController.navigationBar.frame.size.height;
+    fullScreenRect.size.height-=self.tabBarController.tabBar.frame.size.height;
+    
     self.scrollView.frame=fullScreenRect;
     
 }
@@ -108,7 +114,11 @@
     self.scrollView.maximumZoomScale=3;
     self.scrollView.minimumZoomScale=0.1;
     
+    
     CGRect fullScreenRect=[[UIScreen mainScreen] applicationFrame];
+    fullScreenRect.origin.y=self.navigationController.navigationBar.frame.size.height;
+    fullScreenRect.size.height-=self.tabBarController.tabBar.frame.size.height;
+    
     CGFloat verticalRatio= fullScreenRect.size.width / self.image.size.width;
     CGFloat horizontalRatio = fullScreenRect.size.height / self.image.size.height;
     self.scrollView.zoomScale=MIN(verticalRatio, horizontalRatio);
