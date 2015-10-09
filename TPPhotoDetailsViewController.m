@@ -34,18 +34,17 @@
     self.navigationItem.title=self.photoInfoDictionary[@"title"];
     
     //TODO: adjust activity indicator size and position
-    [self loadData];
+    
     
     CGRect fullScreenRect=[[UIScreen mainScreen] applicationFrame];
 
     self.scrollView=[[UIScrollView alloc] initWithFrame:fullScreenRect];
     self.scrollView.backgroundColor=[UIColor blackColor];
-    self.scrollView.contentSize=CGSizeMake(1024, 1024);
-    self.activityIndicator.center=self.scrollView.center;
+    self.scrollView.contentSize=fullScreenRect.size;
     
-    self.photoImageView=[[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-    self.photoImageView.backgroundColor= [UIColor whiteColor];
-    self.photoImageView.center=self.scrollView.center;
+    self.photoImageView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    self.photoImageView.backgroundColor= [UIColor greenColor];
+   
     
     self.activityIndicator= [[UIActivityIndicatorView alloc] init];
     
@@ -54,6 +53,12 @@
     [self.scrollView addSubview:self.photoImageView];
     [self.view addSubview:self.scrollView];
     [self.view addSubview:self.activityIndicator];
+    self.photoImageView.center=self.scrollView.center;
+    self.activityIndicator.center=self.scrollView.center;
+    self.activityIndicator.activityIndicatorViewStyle= UIActivityIndicatorViewStyleWhiteLarge;
+    
+    
+    [self loadData];
     
     //UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewPinched:)];
     //UIPanGestureRecognizer *panGestureRecognizer=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewPan:)];
@@ -68,10 +73,12 @@
     
 }
 
+
+//TODO: check in case of local loading
 -(void) setImage:(UIImage *)image{
-    _image =image;
+    _image = image;
     
-    NSLog(@"image dimensions: [w: %.2f, h: .2f]",self.image.size.width,self.image.size.height);
+    NSLog(@"image dimensions: [w: %.2f, h: %.2f]",self.image.size.width,self.image.size.height);
     
     [self adjustFrameSize];
     
@@ -94,60 +101,12 @@
     self.photoImageView.frame=photoImageViewFrame;
     self.photoImageView.image=self.image;
     
-    
     //adjust scroll view content size to be equal to photo image view frame size
     self.scrollView.contentSize=imageSize;
-    
-    
-    //CGRect scrollViewFrame = self.scrollView.frame;
-    //CGFloat scaleWidth = scrollViewFrame.size.width / self.scrollView.contentSize.width;
-    //CGFloat scaleHeight = scrollViewFrame.size.height / self.scrollView.contentSize.height;
-    //CGFloat minScale = MIN(scaleWidth, scaleHeight);
-   //self.scrollView.minimumZoomScale = minScale;
-    
-    // 5
-    //self.scrollView.maximumZoomScale = 1.0f;
-    //self.scrollView.zoomScale = minScale;
-    //[self centerScrollViewContents];
-
-}
-
-- (void)centerScrollViewContents {
-    CGSize boundsSize = self.scrollView.bounds.size;
-    CGRect contentsFrame = self.photoImageView.frame;
-    
-    if (contentsFrame.size.width < boundsSize.width) {
-        contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0f;
-    } else {
-        contentsFrame.origin.x = 0.0f;
-    }
-    
-    if (contentsFrame.size.height < boundsSize.height) {
-        contentsFrame.origin.y = (boundsSize.height - contentsFrame.size.height) / 2.0f;
-    } else {
-        contentsFrame.origin.y = 0.0f;
-    }
-    
-    self.photoImageView.frame = contentsFrame;
-}
-
--(void) scrollViewPinched:(UIPinchGestureRecognizer *)recognizer{
-    NSLog(@"pinch gesture detected.");
-    //self.photoImageView.contentMode = UIViewContentModeCenter;
-    //recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
-    //recognizer.scale = 1;
-    
-    NSLog(@"scale: [%.2f]scroll View frame: [%.2f,%.2f], image view size:[%.2f,%.2f]",recognizer.scale,self.scrollView.frame.size.width,self.scrollView.frame.size.height,self.photoImageView.frame.size.width,self.photoImageView.frame.size.height);
-}
-
--(void) scrollViewPan:(UIPanGestureRecognizer *)recognizer{
-    NSLog(@"pan gesture detected.");
-    //self.photoImageView.contentMode = UIViewContentModeCenter;
-    CGPoint translation = [recognizer translationInView:self.view];
-    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
-                                         recognizer.view.center.y + translation.y);
-    [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
-    //NSLog(@"scroll View frame: [%@], image view frame:[%@]",self.scrollView.frame,self.photoImageView.frame);
+    self.scrollView.maximumZoomScale=3;
+    self.scrollView.minimumZoomScale=0.1;
+    self.scrollView.zoomScale=0.5;
+    NSLog(@"adjusting frames ... Done.");
 }
 
 /**
@@ -157,16 +116,29 @@
     __weak TPPhotoDetailsViewController * weakSelf=self;
     if (self.photoInfoDictionary) {
         NSLog(@"received image info dictionary: %@", self.photoInfoDictionary);
-        
         //start animating activity indicator
         [self.activityIndicator startAnimating];
         NSString * photoId=self.photoInfoDictionary[FLICKR_PHOTO_ID];
         if (!([self loadHistoryEntryFileImageWithPhotoId:photoId])) {
-
+            NSLog(@"Attempting to download image....");
             //define download completion block
             void (^block)(BOOL success, NSData * photoData) = ^(BOOL success, NSData * photoData){
                 if (success) {
                     [weakSelf setPhotoData:photoData];
+                    NSLog(@"Download image....Finished");
+                }else{
+                    //TODO: handle download error
+                    //alert dialog with ok & pop view controller
+                    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Download Error"
+                                                                                   message:@"Error downloading photo"
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                          handler:^(UIAlertAction * action) {}];
+                    
+                    [alert addAction:defaultAction];
+                    [weakSelf presentViewController:alert animated:YES completion:nil];
+                    [[weakSelf navigationController] popViewControllerAnimated:YES];
                 }
             };
             //start fetch image data
@@ -179,17 +151,17 @@
     BOOL result=NO;
     //load from file path stored in the history structure
     NSString * filePath=[TPHistory sharedInstance].photosHistory[photoId][HISTORY_ENTRY_IMAGE_PATH_KEY];
-    NSLog(@"starting to load image from filePath: [%@]",  filePath);
-    UIImage * imageFromFile=[UIImage imageWithContentsOfFile:filePath];
-    if (imageFromFile) {
-        self.photoImageView.image  = imageFromFile;
-        //self.photoImageView.frame = (CGRect){.origin=CGPointMake(0.0f, 0.0f), .size=imageFromFile.size};
-        self.photoImageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.scrollView.contentSize = imageFromFile.size;
-        NSLog(@"image loaded.");
-        [self adjustFrameSize];
-        [self.activityIndicator stopAnimating];
-        result=YES;
+    if (filePath) {
+        NSLog(@"starting to load image from filePath: [%@]",  filePath);
+        //UIImage * imageFromFile=[UIImage imageWithContentsOfFile:filePath];
+        NSData * dataFromFile = [NSData dataWithContentsOfFile:filePath];
+        if (dataFromFile) {
+            NSLog(@"Loaded image successfully.");
+            [self setImage:[UIImage imageWithData:dataFromFile]];
+            result=YES;
+        }
+    }else{
+        NSLog(@"No such file in history filePath: [%@]",  filePath);
     }
     return result;
 }
