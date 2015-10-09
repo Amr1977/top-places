@@ -116,8 +116,7 @@
     NSLog(@"adjusting frames ... Done.");
 }
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
     return self.photoImageView;
 }
 
@@ -141,16 +140,8 @@
                 }else{
                     //TODO: handle download error
                     //alert dialog with ok & pop view controller
-                    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Download Error"
-                                                                                   message:@"Error downloading photo"
-                                                                            preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                          handler:^(UIAlertAction * action) {}];
-                    
-                    [alert addAction:defaultAction];
-                    [weakSelf presentViewController:alert animated:YES completion:nil];
-                    [[weakSelf navigationController] popViewControllerAnimated:YES];
+                    NSLog(@"Download image....error");
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
                 }
             };
             //start fetch image data
