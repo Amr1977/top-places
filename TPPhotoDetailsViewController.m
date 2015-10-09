@@ -33,13 +33,9 @@
     [super viewDidLoad];
     self.navigationItem.title=self.photoInfoDictionary[@"title"];
     
-    //TODO: adjust activity indicator size and position
-    
-    
     CGRect fullScreenRect=[[UIScreen mainScreen] applicationFrame];
     fullScreenRect.origin.y=self.navigationController.navigationBar.frame.size.height;
     fullScreenRect.size.height-=self.tabBarController.tabBar.frame.size.height;
-    
 
     self.scrollView=[[UIScrollView alloc] initWithFrame:fullScreenRect];
     self.scrollView.backgroundColor=[UIColor blackColor];
@@ -50,8 +46,6 @@
    
     
     self.activityIndicator= [[UIActivityIndicatorView alloc] init];
-    
-    
     
     [self.scrollView addSubview:self.photoImageView];
     [self.view addSubview:self.scrollView];
@@ -64,12 +58,6 @@
     self.scrollView.maximumZoomScale=6.0;
     
     [self loadData];
-    
-    //UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewPinched:)];
-    //UIPanGestureRecognizer *panGestureRecognizer=[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewPan:)];
-    
-    //[self.scrollView addGestureRecognizer:pinchGestureRecognizer];
-    //[self.scrollView addGestureRecognizer:panGestureRecognizer];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -78,11 +66,9 @@
     fullScreenRect.size.height-=self.tabBarController.tabBar.frame.size.height;
     
     self.scrollView.frame=fullScreenRect;
-    
+   
 }
 
-
-//TODO: check in case of local loading
 -(void) setImage:(UIImage *)image{
     _image = image;
     
@@ -121,7 +107,7 @@
     
     CGFloat verticalRatio= fullScreenRect.size.width / self.image.size.width;
     CGFloat horizontalRatio = fullScreenRect.size.height / self.image.size.height;
-    self.scrollView.zoomScale=MIN(verticalRatio, horizontalRatio);
+    self.scrollView.zoomScale=MIN(verticalRatio, horizontalRatio);//to fit in scroll view frame.
     
     NSLog(@"adjusting frames ... Done.");
 }
@@ -148,8 +134,6 @@
                     [weakSelf setPhotoData:photoData];
                     NSLog(@"Download image....Finished");
                 }else{
-                    //TODO: handle download error
-                    //alert dialog with ok & pop view controller
                     NSLog(@"Download image....error");
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 }
@@ -166,7 +150,6 @@
     NSString * filePath=[TPHistory sharedInstance].photosHistory[photoId][HISTORY_ENTRY_IMAGE_PATH_KEY];
     if (filePath) {
         NSLog(@"starting to load image from filePath: [%@]",  filePath);
-        //UIImage * imageFromFile=[UIImage imageWithContentsOfFile:filePath];
         NSData * dataFromFile = [NSData dataWithContentsOfFile:filePath];
         if (dataFromFile) {
             NSLog(@"Loaded image successfully.");
